@@ -13,8 +13,8 @@ sudo a2enmod expires
 #############################################################################
 # ENABLE PREFORK MODULE
 #############################################################################
-a2dismod mpm_*
-a2enmod mpm_prefork 
+sudo a2dismod mpm_*
+sudo a2enmod mpm_prefork 
 
 NUM=`cat /etc/apache2/apache2.conf | grep mpm_prefork_module`
 if [ "$NUM" = "0" ];
