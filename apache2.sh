@@ -27,6 +27,8 @@ echo "
     MaxClients          150
     MaxRequestsPerChild   0
 </IfModule>
+
+KeepAlive Off
 " >> /etc/apache2/apache2.conf
 fi
 
