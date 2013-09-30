@@ -26,3 +26,4 @@ My installation scripts for Ubuntu Server
 
 ## Others
 - [Sendmail](https://raw.github.com/nilopc/bashInstallers/master/sendMail.sh)
+- [jpegtran, advpng, optipng, gifsicle](https://raw.github.com/nilopc/bashInstallers/master/imageOptimization.sh)
