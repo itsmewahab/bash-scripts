@@ -11,29 +11,6 @@ sudo a2enmod headers
 sudo a2enmod expires
 
 #############################################################################
-# ENABLE PREFORK MODULE
-#############################################################################
-sudo a2dismod mpm_*
-sudo a2enmod mpm_prefork 
-
-NUM=`cat /etc/apache2/apache2.conf | grep mpm_prefork_module`
-if [ "$NUM" = "0" ];
-then
-echo "
-<IfModule mpm_prefork_module>
-    StartServers        5
-    MinSpareServers     5
-    MaxSpareServers     10
-    MaxClients          150
-    ServerLimit	        256
-    MaxRequestsPerChild 100
-</IfModule>
-
-KeepAlive Off
-" >> /etc/apache2/apache2.conf
-fi
-
-#############################################################################
 # SECURING APACHE2
 #############################################################################
 echo "ServerSignature Off"  >> /etc/apache2/apache2.conf 
