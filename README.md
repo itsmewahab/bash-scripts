@@ -12,7 +12,7 @@ My installation scripts for Ubuntu Server
 - [Apache 2.x](https://raw.github.com/nilopc/bashInstallers/master/apache2.sh)
 
 ## Cache Systems
-- [Memcache & Memcached](https://raw.github.com/nilopc/bashInstallers/master/memcached.sh)
+- [Memcached](https://raw.github.com/nilopc/bashInstallers/master/memcached.sh)
 
 ## SQL Databases
 - [MySQL 5.x](https://raw.github.com/nilopc/bashInstallers/master/mySQL.sh)
