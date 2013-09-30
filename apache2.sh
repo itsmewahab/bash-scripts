@@ -21,11 +21,12 @@ if [ "$NUM" = "0" ];
 then
 echo "
 <IfModule mpm_prefork_module>
-    StartServers          5
-    MinSpareServers       5
-    MaxSpareServers      10
+    StartServers        5
+    MinSpareServers     5
+    MaxSpareServers     10
     MaxClients          150
-    MaxRequestsPerChild   0
+    ServerLimit	        256
+    MaxRequestsPerChild 100
 </IfModule>
 
 KeepAlive Off
