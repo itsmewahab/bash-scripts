@@ -24,7 +24,7 @@ AddCharset utf-8 .css .js
 # ----------------------------------------------------------------------
 # Gzip data
 # ----------------------------------------------------------------------
-AddOutputFilterByType DEFLATE text/plain text/html text/javascript text/css application/json$
+AddOutputFilterByType DEFLATE text/plain text/html text/javascript text/css application/json
 
 # ----------------------------------------------------------------------
 # Remove Image ETags
