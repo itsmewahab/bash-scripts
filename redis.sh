@@ -1,5 +1,10 @@
 #!/bin/bash
 
+sudo -i 
+
+###########################################################
+# INSTALLATION
+###########################################################
 ## Download
 cd /tmp 
 wget http://download.redis.io/redis-stable.tar.gz
@@ -13,3 +18,17 @@ make
 cd ..
 rm redis-stable.tar.gz
 rm -Rf redis-stable
+
+
+###########################################################
+# CONFIGURATION
+###########################################################
+NUM=`cat /etc/sysctl.conf | grep 'vm.overcommit_memory.*=*.1' | wc -l`
+
+if [ "$NUM" = "0" ];
+then
+  echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf
+fi  
+
+
+sudo service redis-server restart
