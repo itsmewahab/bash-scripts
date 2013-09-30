@@ -28,6 +28,7 @@ NUM=`cat /etc/sysctl.conf | grep 'vm.overcommit_memory.*=*.1' | wc -l`
 if [ "$NUM" = "0" ];
 then
   echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf
+  sysctl vm.overcommit_memory=1
 fi  
 
 
