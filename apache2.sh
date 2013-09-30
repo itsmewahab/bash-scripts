@@ -16,6 +16,9 @@ sudo a2enmod expires
 a2dismod mpm_*
 a2enmod mpm_prefork 
 
+NUM=`cat /etc/apache2/apache2.conf | grep mpm_prefork_module`
+if [ "$NUM" = "0" ];
+then
 echo "
 <IfModule mpm_prefork_module>
     StartServers          5
@@ -25,6 +28,7 @@ echo "
     MaxRequestsPerChild   0
 </IfModule>
 " >> /etc/apache2/apache2.conf
+fi
 
 #############################################################################
 # SECURING APACHE2
