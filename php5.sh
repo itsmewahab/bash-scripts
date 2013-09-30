@@ -18,10 +18,8 @@ sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-suhosin php5-sqli
 #----------------------------------------------------------------------------
 # Unit testing suite for PHP.
 #############################################################################
-sudo apt-get install -y phpunit
-sudo pecl channel-update pecl.php.net
-sudo pear config-set auto_discover 1
-sudo pear install pear.phpunit.de/PHPUnit
+curl -o phpunit http://pear.phpunit.de/get/phpunit.phar -o /usr/local/bin/phpunit
+chmod a+x /usr/local/bin/phpunit
 
 #############################################################################
 # COMPOSER
@@ -33,14 +31,15 @@ sudo echo "suhosin.executor.include.whitelist = phar" >> /etc/php5/cli/conf.d/su
 cd
 curl -s http://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer.phar
-sudo chmod +x /usr/local/bin/composer.phar
+sudo chmod a+x /usr/local/bin/composer.phar
 
 #############################################################################
 # PHP-CS-FIXER
 #----------------------------------------------------------------------------
 # Fix and force a coding standard on your code.
 #############################################################################
-
+curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/local/bin/php-cs-fixer
+chmod a+x /usr/local/bin/php-cs-fixer
 
 #############################################################################
 # GEOIP
