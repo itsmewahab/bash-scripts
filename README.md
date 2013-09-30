@@ -19,7 +19,8 @@ My installation scripts for Ubuntu Server
 
 ## NoSQL Databases
 - [Redis](https://raw.github.com/nilopc/bashInstallers/master/redis.sh)
- 
+- [MongoDB](https://raw.github.com/nilopc/bashInstallers/master/mongoDB.sh)
+
 ## Queue Systems
 - [RabbitMQ](https://raw.github.com/nilopc/bashInstallers/master/rabbitMQ.sh)
 
