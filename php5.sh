@@ -29,8 +29,8 @@ sudo echo "extension=apc.so" > /etc/php5/cgi/conf.d/geoip.ini
 #----------------------------------------------------------------------------
 # Unit testing suite for PHP.
 #############################################################################
-curl -o phpunit http://pear.phpunit.de/get/phpunit.phar -o /usr/local/bin/phpunit
-chmod a+x /usr/local/bin/phpunit
+curl -o phpunit http://pear.phpunit.de/get/phpunit.phar -o /usr/bin/phpunit
+chmod a+x /usr/bin/phpunit
 
 #############################################################################
 # COMPOSER
@@ -41,16 +41,16 @@ sudo apt-get install -y git-core curl
 sudo echo "suhosin.executor.include.whitelist = phar" >> /etc/php5/cli/conf.d/suhosin.ini
 cd
 curl -s http://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer.phar
-sudo chmod a+x /usr/local/bin/composer.phar
+sudo mv composer.phar /usr/bin/composer.phar
+sudo chmod a+x /usr/bin/composer.phar
 
 #############################################################################
 # PHP-CS-FIXER
 #----------------------------------------------------------------------------
 # Fix and force a coding standard on your code.
 #############################################################################
-curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/local/bin/php-cs-fixer
-chmod a+x /usr/local/bin/php-cs-fixer
+curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/bin/php-cs-fixer
+chmod a+x /usr/bin/php-cs-fixer
 
 #############################################################################
 # GEOIP
