@@ -12,6 +12,10 @@ echo "define('_USE_CT_FILE_','1')dnl"                     >> /etc/mail/submit.mc
 echo "define('confCT_FILE','/etc/mail/trusted-users')dnl" >> /etc/mail/submit.mc
 echo 'www-data' >> nano /etc/mail/trusted-users
 
+##Set max attachment size
+echo 'O MaxMessageSize=0' >> /etc/mail/sendmail.cf
+
+
 ## Restart
 sudo service sendmail restart
 
