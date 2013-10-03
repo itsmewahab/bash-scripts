@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sudo -i
 sudo apt-get install -y build-essential libpcre3 libpcre3-dev
 
 #############################################################################
