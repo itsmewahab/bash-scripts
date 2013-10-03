@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sudo -i
 sudo apt-get install -y apache2 apache2-dev libapache2-mod-geoip
 
 #############################################################################
