@@ -15,58 +15,58 @@ CLIENT_PASS=$5
 
 read -r -d '' SSL_CONFIG <<EOF
 
-[ ca ]										      	        \n                                                     
-default_ca = testca 							        \n                                       
-												                  \n
-[ testca ] 										            \n                                                
-dir = .   										            \n                                                 
-certificate = \$dir/cacert.pem  			    \n                            
-database = \$dir/index.txt 						    \n                                 
-new_certs_dir = \$dir/certs 					    \n                                
-private_key = \$dir/private/cakey.pem     \n                      
-serial = \$dir/serial  							      \n                                     
-												                  \n
-default_crl_days = 7  							      \n                                     
-default_days = 7300  							        \n                                       
-default_md = sha1   							        \n                                       
-												                  \n
-policy = testca_policy 							      \n                                    
-x509_extensions = certificate_extensions  \n              
-												                  \n 
-[ testca_policy ]    							        \n                                      
-commonName = supplied  							      \n                                    
-stateOrProvinceName = optional  				  \n                           
-countryName = optional     						    \n                                
-emailAddress = optional     					    \n                               
-organizationName = optional 					    \n                               
+[ ca ]											\n                                                     
+default_ca = testca 							\n                                       
+												\n
+[ testca ] 										\n                                                
+dir = .   										\n                                                 
+certificate = \$dir/cacert.pem  				\n                            
+database = \$dir/index.txt 						\n                                 
+new_certs_dir = \$dir/certs 					\n                                
+private_key = \$dir/private/cakey.pem 			\n                      
+serial = \$dir/serial  							\n                                     
+												\n
+default_crl_days = 7  							\n                                     
+default_days = 7300  							\n                                       
+default_md = sha1   							\n                                       
+												\n
+policy = testca_policy 							\n                                    
+x509_extensions = certificate_extensions     	\n              
+												\n 
+[ testca_policy ]    							\n                                      
+commonName = supplied  							\n                                    
+stateOrProvinceName = optional  				\n                           
+countryName = optional     						\n                                
+emailAddress = optional     					\n                               
+organizationName = optional 					\n                               
 organizationalUnitName = optional   			\n                       
-											                  	\n
-[ certificate_extensions ]  					    \n                               
-basicConstraints = CA:false  					    \n                              
-												                  \n
-[ req ]            								        \n                                       
-default_bits = 2048    							      \n                                   
-default_keyfile = ./private/cakey.pem 		\n                     
-default_md = sha1        						      \n                                  
-prompt = yes     								          \n                                          
+												\n
+[ certificate_extensions ]  					\n                               
+basicConstraints = CA:false  					\n                              
+												\n
+[ req ]            								\n                                       
+default_bits = 2048    							\n                                   
+default_keyfile = ./private/cakey.pem 			\n                     
+default_md = sha1        						\n                                  
+prompt = yes     								\n                                          
 distinguished_name = root_ca_distinguished_name \n        
-x509_extensions = root_ca_extensions   		\n                    
-												                  \n
-[ root_ca_distinguished_name ]   				  \n                          
-commonName = hostname     						    \n                                 
-												                  \n
-[ root_ca_extensions ]     						    \n                                
-basicConstraints = CA:true    					  \n                             
+x509_extensions = root_ca_extensions   			\n                    
+												\n
+[ root_ca_distinguished_name ]   				\n                          
+commonName = hostname     						\n                                 
+												\n
+[ root_ca_extensions ]     						\n                                
+basicConstraints = CA:true    					\n                             
 keyUsage = keyCertSign, cRLSign   				\n                         
-												                  \n
-[ client_ca_extensions ]   						    \n                                
-basicConstraints = CA:false   					  \n                             
-keyUsage = digitalSignature     				  \n                           
-extendedKeyUsage = 1.3.6.1.5.5.7.3.2  		\n                     
-												                  \n
-[ server_ca_extensions ]     					    \n                              
-basicConstraints = CA:false  					    \n                              
-keyUsage = keyEncipherment    					  \n                             
+												\n
+[ client_ca_extensions ]   						\n                                
+basicConstraints = CA:false   					\n                             
+keyUsage = digitalSignature     				\n                           
+extendedKeyUsage = 1.3.6.1.5.5.7.3.2  			\n                     
+												\n
+[ server_ca_extensions ]     					\n                              
+basicConstraints = CA:false  					\n                              
+keyUsage = keyEncipherment    					\n                             
 extendedKeyUsage = 1.3.6.1.5.5.7.3.1			\n
 
 EOF
@@ -211,4 +211,18 @@ else
 
 	exit 0
 fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
