@@ -98,7 +98,7 @@ PLUGINS_DIR=/etc/rabbitmq/plugins
 # ##########################
 ENABLED_PLUGINS_FILE=/etc/rabbitmq/enabled_plugins
 "
-sudo echo $FILE > /etc/rabbitmq/rabbitmq-env.conf
+#sudo echo $FILE > /etc/rabbitmq/rabbitmq-env.conf
 
 sudo service rabbitmq-server restart
 
