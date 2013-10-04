@@ -7,6 +7,7 @@
 ## Add the repo for RabbitMQ
 sudo echo 'deb http://www.rabbitmq.com/debian/ testing main' >> /etc/apt/sources.list
 
+
 ## Add the Auth keys
 sudo wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 sudo apt-key add rabbitmq-signing-key-public.asc
@@ -15,6 +16,9 @@ sudo apt-key add rabbitmq-signing-key-public.asc
 sudo apt-get update
 sudo apt-get install -y rabbitmq-server
 
+########################################################################
+# SECURE CONFIGURATION
+########################################################################
 ## Add an admin user and grant permissions
 rabbitmqctl add_user admin adminpass
 rabbitmqctl set_user_tags admin administrator
@@ -25,11 +29,16 @@ rabbitmqctl delete_user guest
 
 ## Add RabbitMQ Env file to allow user
 touch /etc/rabbitmq/rabbitmq-env.conf
-echo '## http://www.rabbitmq.com/configure.html for more info and variables'
-echo ''
-echo 'RABBITMQ_NODE_PORT=5972'
+FILE="## http://www.rabbitmq.com/configure.html for more info and variables
 
-##Reload and inform the user.
+RABBITMQ_NODE_PORT=5972
+"
+echo $FILE >> /etc/rabbitmq/rabbitmq-env.conf
+
+########################################################################
+# FINISH
+########################################################################
+
 sudo service rabbitmq-server restart
 
 echo '...............................................................'
