@@ -161,7 +161,7 @@ makeSSLClientCert()
 ########################################################################################
 ## FINAL STEP, COPY THE CERTIFICATES OVER TO THE DIRECTORY.
 ########################################################################################
-copySSLKeysToRabbitMQ()
+copyServerKeysToRabbitMQ()
 {
     ## Create SSL RabbitMQ directories
     sudo mkdir -p $RABBITMQ_PATH/ssl/ca
@@ -171,6 +171,16 @@ copySSLKeysToRabbitMQ()
     sudo cp ./ca/cacert.pem $RABBITMQ_PATH/ssl/ca/cacert.pem
     sudo cp ./server/*.key.pem $RABBITMQ_PATH/ssl/server/
    	sudo cp ./server/*.cert.pem $RABBITMQ_PATH/ssl/server/
+}
+
+copyClientKeysOutsideTempDir()
+{
+	mkdir -p ../RabbitMQClientKeys
+	cp ./client/* ../RabbitMQClientKeys/
+
+	cd ../RabbitMQClientKeys
+	PWD=`pwd`
+	echo "Public keys for your client are located in: $PWD "
 }
 
 ########################################################################################
@@ -193,7 +203,7 @@ then
 	echo ""
 	exit 1
 else
-
+	
 	## Temporal setup dir
 	EPOCH=`date +%s`
 	mkdir "$PWD/temp_$EPOCH"
@@ -204,25 +214,13 @@ else
 	setupCA $SSL_CERTIFICATE_AUTH
 	makeSSLServerCert $SERVER_NAME $SERVER_PASS
 	makeSSLClientCert $CLIENT_NAME $CLIENT_PASS
-	copySSLKeysToRabbitMQ
+	copyServerKeysToRabbitMQ
+	copyClientKeysOutsideTempDir
 	
 	## Remove files
 	rm -Rf "$PWD/temp_$EPOCH"
 
 	exit 0
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
