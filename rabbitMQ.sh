@@ -23,8 +23,11 @@ rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 ## Delete default user. We can't risk it :D
 rabbitmqctl delete_user guest
 
-## Enable plugins
-rabbitmq-plugins enable rabbitmq_management
+## Add RabbitMQ Env file to allow user
+touch /etc/rabbitmq/rabbitmq-env.conf
+echo '## http://www.rabbitmq.com/configure.html for more info and variables'
+echo ''
+echo 'RABBITMQ_NODE_PORT=5972'
 
 ##Reload and inform the user.
 sudo service rabbitmq-server restart
@@ -39,4 +42,8 @@ echo '...............................................................'
 echo 'Change the password by running the following command:'
 echo '' 
 echo 'rabbitmqctl change_password admin <new_password>' 
+echo '' 
+echo '...............................................................'
+echo '' 
+echo 'Change the running port by editing the value in /etc/rabbitmq/rabbitmq-env.conf'
 echo '' 
