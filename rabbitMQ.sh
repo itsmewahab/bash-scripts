@@ -23,6 +23,9 @@ rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 ## Delete default user. We can't risk it :D
 rabbitmqctl delete_user guest
 
+## Enable plugins
+rabbitmq-plugins enable rabbitmq_management
+
 ##Reload and inform the user.
 sudo service rabbitmq-server restart
 
