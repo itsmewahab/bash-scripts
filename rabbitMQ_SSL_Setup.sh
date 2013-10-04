@@ -191,6 +191,8 @@ copyClientKeysOutsideTempDir()
 
 if [ $# -ne 5 ];
 then
+	echo "This script will generate a self-signed SSL certificate. This is meant to be used in non-public environtments only."
+	echo "This should be fine, considering queuing systems should never be public."
 	echo ""
 	echo "Usage:"
 	echo "sh $0 <server_hostname> <server_user> <server_password> <rabbitmq_client> <rabbitmq_client_password>"
@@ -222,5 +224,18 @@ else
 
 	exit 0
 fi
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
