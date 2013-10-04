@@ -15,6 +15,10 @@ sudo apt-key add rabbitmq-signing-key-public.asc
 sudo apt-get update
 sudo apt-get install -y rabbitmq-server
 
+rabbitmqctl add_user admin adminpass
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+rabbitmqctl delete_user guest
 
 FILE="
 # ##############################
@@ -94,5 +98,18 @@ PLUGINS_DIR=/etc/rabbitmq/plugins
 # ##########################
 ENABLED_PLUGINS_FILE=/etc/rabbitmq/enabled_plugins
 "
+sudo echo $FILE > /etc/rabbitmq/rabbitmq-env.conf
 
 sudo service rabbitmq-server restart
+
+echo '...............................................................'
+echo 'Current set up:'
+echo '...............................................................'
+echo 'RabbitMQ user: admin'
+echo 'RabbitMQ pass: adminpass'
+echo ''
+echo '...............................................................'
+echo 'Change the password by running the following command:'
+echo '' 
+echo 'rabbitmqctl change_password admin <new_password>' 
+echo '' 
