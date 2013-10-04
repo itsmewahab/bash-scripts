@@ -23,3 +23,4 @@ NODENAME=rabbit_1
 "
 
 sudo echo $DATA >> /etc/rabbitmq/rabbitmq-env.conf 
+
