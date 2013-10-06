@@ -9,41 +9,10 @@ sudo apt-get install -y gifsicle
 ## OPTI-PNG && ADVPNG
 sudo apt-get install -y optipng advancecomp pngcrush
 
-## Download PNGWOLF
-sudo apt-get install  -y build-essential git-core cmake
+## PNGOUT
 cd /tmp
-git clone https://github.com/hoehrmann/pngwolf.git
-cd pngwolf
-
-## Download PNGWOLF dependencies
-wget http://archive.ubuntu.com/ubuntu/pool/universe/g/galib/galib_2.4.7.orig.tar.gz
-tar -zxvf galib_2.4.7.orig.tar.gz
-mv galib247 galib
-
-wget http://zlib.net/zlib-1.2.8.tar.gz
-tar -zxvf zlib-1.2.8.tar.gz
-mv zlib-1.2.8 zlib
-
-mkdir 7zip
-cd 7zip 
-wget http://downloads.sourceforge.net/sevenzip/7z920.tar.bz2
-tar -xjvf 7z920.tar.bz2
-cd ..
-
-cmake CMakeLists.txt
-
-## Patch using Bash... because .patch sucks sometimes
-sed -i 's/#include <stdlib.h>/#/g' 7zip/C/Alloc.c
-sed -i 's/#include <stddef.h>/#include <stddef.h>\n#include <stdlib.h>/g' 7zip/C/Alloc.h
-sed -i 's/memcpy(dest, _buffer, _size);/memcpy(dest, _buffer.operator const unsigned char *(), _size);/g' 7zip/CPP/7zip/Common/StreamObjects.cpp
-
-## Make the pngwolf exec :D
-make > /dev/null 2>&1
-
-if [ -f pngwolf ];
-then
-  chmod +x pngwolf
-  cp pngwolf /usr/bin/pngwolf
-else
-  echo 'Failed installing pngwolf'
-fi
+sudo wget http://static.jonof.id.au/dl/kenutils/pngout-20130221-linux.tar.gz
+sudo tar -xvf pngout-*-linux.tar.gz
+sudo cp pngout-20130221-linux/x86_64/pngout /usr/bin/
+sudo chmod +x /usr/bin/pngout
+sudo rm -Rf /tmp/pngout-*
