@@ -39,4 +39,12 @@ sed -i 's/#include <stddef.h>/#include <stddef.h>\n#include <stdlib.h>/g' 7zip/C
 sed -i 's/memcpy(dest, _buffer, _size);/memcpy(dest, _buffer.operator const unsigned char *(), _size);/g' 7zip/CPP/7zip/Common/StreamObjects.cpp
 
 ## Make the pngwolf exec :D
-make
+make > /dev/null 2>&1
+
+if [ -f pngwolf ];
+then
+  chmod +x pngwolf
+  cp pngwolf /usr/bin/pngwolf
+else
+  echo 'Failed installing pngwolf'
+fi
