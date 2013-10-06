@@ -33,7 +33,6 @@ cd ..
 cmake CMakeLists.txt
 
 ## Patch using Bash... because .patch sucks sometimes
-cd pngwolf
 sed -i 's/#include <stdlib.h>/#/g' 7zip/C/Alloc.c
 sed -i 's/#include <stddef.h>/#include <stddef.h>\n#include <stdlib.h>/g' 7zip/C/Alloc.h
 sed -i 's/memcpy(dest, _buffer, _size);/memcpy(dest, _buffer.operator const unsigned char *(), _size);/g' 7zip/CPP/7zip/Common/StreamObjects.cpp
