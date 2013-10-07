@@ -7,7 +7,7 @@ sudo apt-get install -y jpegoptim libjpeg-progs
 sudo apt-get install -y gifsicle
 
 ## OPTI-PNG && ADVPNG
-sudo apt-get install -y optipng advancecomp pngcrush
+sudo apt-get install -y optipng advancecomp pngcrush pngtools
 
 ## PNGOUT
 cd /tmp
