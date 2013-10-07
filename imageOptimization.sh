@@ -18,7 +18,6 @@ sudo chmod +x /usr/bin/pngout
 sudo rm -Rf /tmp/pngout-*
 
 ##Download DeflOpt. This tool (defopt) should be used right after compressing a PNG file for greater gains.
-
 sudo apt-get install p7zip-full 
 cd /tmp
 sudo wget http://www.walbeehm.com/download/DeflOpt207.7z
