@@ -16,3 +16,13 @@ sudo tar -xvf pngout-*-linux.tar.gz
 sudo cp pngout-20130221-linux/x86_64/pngout /usr/bin/
 sudo chmod +x /usr/bin/pngout
 sudo rm -Rf /tmp/pngout-*
+
+##Download DeflOpt. This tool (defopt) should be used right after compressing a PNG file for greater gains.
+
+sudo apt-get install p7zip-full 
+cd /tmp
+sudo wget http://www.walbeehm.com/download/DeflOpt207.7z
+sudo 7za e DeflOpt207.7z
+mv DeflOpt.exe /usr/bin/deflopt
+sudo chmod +x /usr/bin/deflopt
+sudo rm -Rf /tmp/DeflOpt-*
