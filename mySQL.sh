@@ -6,3 +6,4 @@ sudo apt-get -y upgrade
 
 sudo apt-get -y install mysql-client mysql-server libsasl2-2 sasl2-bin libsasl2-2 libsasl2-dev libsasl2-modules
 
+echo "START=yes" >> /etc/default/saslauthd
