@@ -14,7 +14,7 @@ sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-cli php5-cgi php
 #############################################################################
 # PHP LIBRARIES
 #############################################################################
-sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-suhosin php5-sqlite php5-pspell php5-ps php5-pgsql php5-odbc php5-mysql php5-ming php5-mhash php5-memcached php5-memcache php5-mcrypt php5-intl php5-imap php5-imagick php5-geoip php5-gd php5-ffmpeg php5-dev php5-dbg php5-curl libapache2-mod-php5 
+sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspell php5-ps php5-pgsql php5-odbc php5-mysql php5-ming php5-mhash php5-memcached php5-memcache php5-mcrypt php5-intl php5-imap php5-imagick php5-geoip php5-gd php5-ffmpeg php5-dev php5-dbg php5-curl libapache2-mod-php5 
 
 
 #############################################################################
