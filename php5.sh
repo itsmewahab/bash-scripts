@@ -52,24 +52,6 @@ chmod a+x /usr/bin/php-cs-fixer
 sudo apt-get install libgeoip-dev
 sudo pecl install geoip
 
-if [ -f /etc/php5/apache2/php.ini ];
-then
-  sudo touch /etc/php5/apache2/conf.d/geoip.ini
-  sudo echo "extension=geoip.so" > /etc/php5/apache2/conf.d/geoip.ini
-fi
-
-if [ -f /etc/php5/cgi/php.ini ];
-then
-  sudo touch /etc/php5/cgi/conf.d/geoip.ini
-  sudo echo "extension=geoip.so" > /etc/php5/cgi/conf.d/geoip.ini
-fi
-
-if [ -f /etc/php5/cli/php.ini ];
-then
-  sudo touch /etc/php5/cli/conf.d/geoip.ini
-  sudo echo "extension=geoip.so" > /etc/php5/cli/conf.d/geoip.ini
-fi 
-
 cd /usr/share/GeoIP/
 if [ ! -f "GeoLiteCity.dat.gz" ]; 
 then 
