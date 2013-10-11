@@ -4,7 +4,7 @@ echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
-sudo apt-get install -y apache2 apache2-dev libapache2-mod-geoip
+sudo apt-get install -y apache2
 
 #############################################################################
 # ENABLE THE BASIC APACHE MODULES
