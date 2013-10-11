@@ -9,7 +9,7 @@ sudo apt-get install -y opendkim opendkim-tools sendmail openssl
 echo "FEATURE('use_ct_file')"                             >> /etc/mail/submit.mc
 echo "define('_USE_CT_FILE_','1')dnl"                     >> /etc/mail/submit.mc
 echo "define('confCT_FILE','/etc/mail/trusted-users')dnl" >> /etc/mail/submit.mc
-echo 'www-data' >> nano /etc/mail/trusted-users
+echo 'www-data' >> /etc/mail/trusted-users
 
 ##Set max attachment size
 echo 'O MaxMessageSize=0' >> /etc/mail/sendmail.cf
