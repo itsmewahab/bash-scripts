@@ -91,7 +91,6 @@ then
   echo "expose_php = Off"     >> /etc/php5/apache2/php.ini 
 fi
 
-
 #############################################################################
 # SECURING PHP SENDMAIL 
 #----------------------------------------------------------------------------
@@ -115,6 +114,8 @@ then
     echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
   fi    
 fi
+
+
 
 #############################################################################
 ## Fix deprecated comments in extensions, if any
