@@ -97,24 +97,9 @@ fi
 # In order to not show the X-PHP-Originating-Script header
 #############################################################################
 
-if [ -f /etc/init.d/sendmail ];
-then
-  if [ -f /etc/php5/cgi/php.ini ];
-  then
-    echo "mail.add_x_header = Off" >> /etc/php5/cgi/php.ini 
-  fi
-  
-  if [ -f /etc/php5/cli/php.ini ];
-  then
-    echo "mail.add_x_header = Off" >> /etc/php5/cli/php.ini
-  fi
-  
-  if [ -f /etc/php5/apache2/php.ini ];
-  then
-    echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
-  fi    
-fi
-
+echo "mail.add_x_header = Off" >> /etc/php5/cgi/php.ini 
+echo "mail.add_x_header = Off" >> /etc/php5/cli/php.ini
+echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
 
 
 #############################################################################
