@@ -25,3 +25,8 @@ sudo 7za e DeflOpt207.7z
 mv DeflOpt.exe /usr/bin/deflopt
 sudo chmod +x /usr/bin/deflopt
 sudo rm -Rf /tmp/DeflOpt-*
+
+## SVG Optimizer. Really worth it.
+echo "\n" | sudo add-apt-repository ppa:svg-cleaner-team/svgcleaner
+sudo apt-get update
+sudo apt-get install svgcleaner
