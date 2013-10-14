@@ -91,6 +91,12 @@ then
   echo "expose_php = Off"     >> /etc/php5/apache2/php.ini 
 fi
 
+if [ -f /etc/php5/fpm/php.ini ];
+then
+  echo "display_errors = Off" >> /etc/php5/fpm/php.ini 
+  echo "expose_php = Off"     >> /etc/php5/fpm/php.ini 
+fi
+
 #############################################################################
 # SECURING PHP SENDMAIL 
 #----------------------------------------------------------------------------
@@ -99,6 +105,7 @@ fi
 
 echo "mail.add_x_header = Off" >> /etc/php5/cgi/php.ini 
 echo "mail.add_x_header = Off" >> /etc/php5/cli/php.ini
+echo "mail.add_x_header = Off" >> /etc/php5/fpm/php.ini
 echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
 
 
