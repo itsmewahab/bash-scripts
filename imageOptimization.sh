@@ -18,7 +18,7 @@ sudo chmod +x /usr/bin/pngout
 sudo rm -Rf /tmp/pngout-*
 
 ##Download DeflOpt. This tool (defopt) should be used right after compressing a PNG file for greater gains.
-sudo apt-get install p7zip-full 
+sudo apt-get install -y p7zip-full 
 cd /tmp
 sudo wget http://www.walbeehm.com/download/DeflOpt207.7z
 sudo 7za e DeflOpt207.7z
@@ -29,4 +29,4 @@ sudo rm -Rf /tmp/DeflOpt-*
 ## SVG Optimizer. Really worth it.
 echo "\n" | sudo add-apt-repository ppa:svg-cleaner-team/svgcleaner
 sudo apt-get update
-sudo apt-get install svgcleaner
+sudo apt-get install -y svgcleaner
