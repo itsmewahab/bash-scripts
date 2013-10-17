@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ "$UID" -ne "0" ]
+then
+  echo "" 
+  echo "You must be sudoer or root. To run this script enter:"
+  echo ""
+  echo "sudo chmod +x $0; sudo ./$0"
+  echo ""
+  exit 1
+fi
+
 ###########################################################
 # INSTALLATION
 ###########################################################
@@ -13,3 +23,5 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 ## Install
 sudo apt-get -y update
 sudo apt-get -y install mongodb-10gen
+
+exit 0
