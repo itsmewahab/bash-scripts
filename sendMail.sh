@@ -33,3 +33,5 @@ echo 'Sendmail was installed.'
 echo ''
 echo 'To add trusted users to sendmail, edit the /etc/mail/trusted-users file'
 echo ''
+
+exit 0
