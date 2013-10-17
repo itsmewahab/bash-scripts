@@ -13,7 +13,7 @@ fi
 sudo apt-get install -y build-essential libpcre3 libpcre3-dev
 
 ## Installation
-sudo apt-get install -y opendkim opendkim-tools sendmail openssl 
+sudo apt-get install -y opendkim opendkim-tools sendmail openssl mimedefang
 
 ## In order to not show the X-Authentication-Warning header
 echo "FEATURE('use_ct_file')"                             >> /etc/mail/submit.mc
