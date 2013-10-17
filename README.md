@@ -6,10 +6,11 @@ My installation scripts for Ubuntu Server
 
 
 ## Web Languages
-- [PHP 5.5](https://raw.github.com/nilopc/bashInstallers/master/php5.sh)
+- [PHP 5.x (latest)](https://raw.github.com/nilopc/bashInstallers/master/php5.sh)
+- [NodeJs (latest)](https://raw.github.com/nilopc/bashInstallers/master/nodejs.sh)
 
 ## Web Servers
-- [Apache 2.4](https://raw.github.com/nilopc/bashInstallers/master/apache2.sh)
+- [Apache 2.x (latest)](https://raw.github.com/nilopc/bashInstallers/master/apache2.sh)
 
 ## Cache Systems
 - [Memcached](https://raw.github.com/nilopc/bashInstallers/master/memcached.sh)
