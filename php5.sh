@@ -20,7 +20,7 @@ sudo apt-get install -y build-essential libpcre3 libpcre3-dev
 #############################################################################
 # BASE PHP
 #############################################################################
-sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php-apcu
+sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php5-apcu
 	
 #############################################################################
 # PHP LIBRARIES
