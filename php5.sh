@@ -60,7 +60,7 @@ chmod a+x /usr/bin/php-cs-fixer
 #----------------------------------------------------------------------------
 # Geolocation library for php
 #############################################################################
-sudo apt-get install libgeoip-dev
+sudo apt-get install -y libgeoip-dev
 sudo pecl install geoip
 
 cd /usr/share/GeoIP/
