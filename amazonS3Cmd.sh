@@ -11,3 +11,7 @@ then
 fi
 
 sudo apt-get install -y s3cmd
+
+echo ''
+echo 'Warning: one last step is needed. You need to configure the s3cmd using: s3cmd --configure'
+echo ''
