@@ -472,6 +472,27 @@ END_HEREDOC
 echo "$VAR" >> /etc/apache2/apache2.conf 
 
 
+
+VAR=$(cat <<'END_HEREDOC'
+NameVirtualHost *:80
+Listen 80
+
+<IfModule mod_ssl.c>
+  NameVirtualHost *:443
+  Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+  NameVirtualHost *:443
+  Listen 443
+</IfModule>
+
+END_HEREDOC
+)
+
+
+echo "$VAR" > /etc/apache2/ports.conf 
+
 #############################################################################
 # SECURING APACHE2
 #############################################################################
