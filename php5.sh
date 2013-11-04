@@ -130,6 +130,8 @@ sudo sed -i 's/#/\/\//g' /etc/php5/apache2/conf.d/*.ini
 ## RESTART THE WEB SERVERS
 #############################################################################
 
+service php5-fpm restart 
+
 if [ -f /etc/init.d/apache2 ];
 then
   sudo service apache2 restart
