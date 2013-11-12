@@ -15,7 +15,8 @@ echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
-sudo apt-get install -y apache2
+sudo apt-get install -y apache2 
+sudo apt-get install -y libapache2-mod-geoip
 
 #############################################################################
 # ENABLE THE BASIC APACHE MODULES
@@ -474,16 +475,13 @@ echo "$VAR" >> /etc/apache2/apache2.conf
 
 
 VAR=$(cat <<'END_HEREDOC'
-NameVirtualHost *:80
 Listen 80
 
 <IfModule mod_ssl.c>
-  NameVirtualHost *:443
   Listen 443
 </IfModule>
 
 <IfModule mod_gnutls.c>
-  NameVirtualHost *:443
   Listen 443
 </IfModule>
 
