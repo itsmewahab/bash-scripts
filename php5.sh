@@ -86,26 +86,30 @@ gunzip -f *.gz
 #############################################################################
 if [ -f /etc/php5/cgi/php.ini ];
 then
-  echo "display_errors = Off" >> /etc/php5/cgi/php.ini 
-  echo "expose_php = Off"     >> /etc/php5/cgi/php.ini 
+  echo "display_errors = Off" 		>> /etc/php5/cgi/php.ini 
+  echo "expose_php = Off"     		>> /etc/php5/cgi/php.ini 
+  echo "date.timezone = Europe/Madrid"  >> /etc/php5/cgi/php.ini 
 fi
 
 if [ -f /etc/php5/cli/php.ini ];
 then
-  echo "display_errors = Off" >> /etc/php5/cli/php.ini 
-  echo "expose_php = Off"     >> /etc/php5/cli/php.ini 
+  echo "display_errors = Off" 		>> /etc/php5/cli/php.ini 
+  echo "expose_php = Off"     		>> /etc/php5/cli/php.ini 
+  echo "date.timezone = Europe/Madrid"  >> /etc/php5/cli/php.ini 
 fi
 
 if [ -f /etc/php5/apache2/php.ini ];
 then
-  echo "display_errors = Off" >> /etc/php5/apache2/php.ini 
-  echo "expose_php = Off"     >> /etc/php5/apache2/php.ini 
+  echo "display_errors = Off" 		>> /etc/php5/apache2/php.ini 
+  echo "expose_php = Off"     		>> /etc/php5/apache2/php.ini 
+  echo "date.timezone = Europe/Madrid"  >> /etc/php5/apache2/php.ini   
 fi
 
 if [ -f /etc/php5/fpm/php.ini ];
 then
-  echo "display_errors = Off" >> /etc/php5/fpm/php.ini 
-  echo "expose_php = Off"     >> /etc/php5/fpm/php.ini 
+  echo "display_errors = Off"		>> /etc/php5/fpm/php.ini 
+  echo "expose_php = Off"     		>> /etc/php5/fpm/php.ini 
+  echo "date.timezone = Europe/Madrid"  >> /etc/php5/fpm/php.ini 
 fi
 
 #############################################################################
@@ -114,11 +118,25 @@ fi
 # In order to not show the X-PHP-Originating-Script header
 #############################################################################
 
-echo "mail.add_x_header = Off" >> /etc/php5/cgi/php.ini 
-echo "mail.add_x_header = Off" >> /etc/php5/cli/php.ini
-echo "mail.add_x_header = Off" >> /etc/php5/fpm/php.ini
-echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
+if [ -f /etc/php5/cgi/php.ini ];
+then
+	echo "mail.add_x_header = Off" >> /etc/php5/cgi/php.ini 
+fi
 
+if [ -f /etc/php5/cli/php.ini ];
+then
+	echo "mail.add_x_header = Off" >> /etc/php5/cli/php.ini
+fi
+
+if [ -f /etc/php5/fpm/php.ini ];
+then
+	echo "mail.add_x_header = Off" >> /etc/php5/fpm/php.ini
+fi
+
+if [ -f /etc/php5/apache2/php.ini ];
+then
+	echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
+fi
 
 #############################################################################
 ## Fix deprecated comments in extensions, if any
