@@ -32,7 +32,7 @@ sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspel
 #----------------------------------------------------------------------------
 # Unit testing suite for PHP.
 #############################################################################
-curl -o phpunit https://phar.phpunit.de/phpunit.phar -o /usr/bin/phpunit
+curl -o /usr/bin/phpunit https://phar.phpunit.de/phpunit.phar
 chmod a+x /usr/bin/phpunit
 
 #############################################################################
