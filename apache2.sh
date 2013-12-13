@@ -16,6 +16,8 @@ sudo apt-get -y update
 
 sudo apt-get install -y apache2 
 
+echo -e "\n\n\n\n\n\n\n\n\n\n" | sudo apt-get install -y libapache2-mod-php5
+
 #############################################################################
 # ENABLE THE BASIC APACHE MODULES
 #############################################################################
