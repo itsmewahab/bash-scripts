@@ -15,7 +15,7 @@ echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
 
 sudo apt-get install -y apache2 
-sudo apt-get install -y libapache2-mod-geoip
+sudo apt-get install -y libapache2-mod-geoip 
 
 #############################################################################
 # ENABLE THE BASIC APACHE MODULES
@@ -23,6 +23,7 @@ sudo apt-get install -y libapache2-mod-geoip
 sudo a2enmod rewrite
 sudo a2enmod headers
 sudo a2enmod expires
+sudo a2enmod authz_core
 
 #############################################################################
 # BETTER PERFORMANT APACHE2.
@@ -233,9 +234,7 @@ AddDefaultCharset utf-8
 # danger when anyone has access to them.
 
 <FilesMatch "(^#.*#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|sw[op])|~)$">
-    Order allow,deny
-    Deny from all
-    Satisfy All
+    Require all denied
 </FilesMatch>
 
 # ------------------------------------------------------------------------------
@@ -491,10 +490,11 @@ END_HEREDOC
 echo "$VAR" > /etc/apache2/ports.conf 
 
 #############################################################################
-# SECURING APACHE2
+# SECURING APACHE2 AND REMOVING POINTLESS WARNINGS
 #############################################################################
 echo "ServerSignature Off"  >> /etc/apache2/apache2.conf 
 echo "ServerTokens Prod"    >> /etc/apache2/apache2.conf
+echo "ServerName localhost"  >> /etc/apache2/apache2.conf 
 
 #############################################################################
 # STOP THE WARNING FOR LOCALHOST
@@ -507,7 +507,6 @@ then
 fi  
 
 ## Restart apache2
-sudo a2enmod authz_core
 sudo service apache2 restart
 
 exit 0
