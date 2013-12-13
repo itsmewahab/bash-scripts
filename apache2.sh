@@ -494,6 +494,7 @@ echo "$VAR" > /etc/apache2/ports.conf
 echo "ServerSignature Off"  >> /etc/apache2/apache2.conf 
 echo "ServerTokens Prod"    >> /etc/apache2/apache2.conf
 echo "ServerName localhost"  >> /etc/apache2/apache2.conf 
+echo "Header unset X-Powered-By"  >> /etc/apache2/apache2.conf 
 
 #############################################################################
 # STOP THE WARNING FOR LOCALHOST
