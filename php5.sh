@@ -24,15 +24,15 @@ sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php
 #############################################################################
 # PHP LIBRARIES
 #############################################################################
-sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspell php5-ps php5-pgsql php5-odbc php5-mysql php5-ming php5-mhash php5-memcached php5-memcache php5-mcrypt php5-intl php5-imap php5-imagick php5-geoip php5-gd php5-dev php5-dbg php5-curl libapache2-mod-php5 
+sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspell php5-ps php5-pgsql php5-odbc php5-mysql php5-ming php5-mhash php5-memcached php5-memcache php5-mcrypt php5-intl php5-imap php5-imagick php5-geoip php5-gd php5-dev php5-dbg php5-curl
 
 #############################################################################
 # PHPUNIT
 #----------------------------------------------------------------------------
 # Unit testing suite for PHP.
 #############################################################################
-curl -o /usr/bin/phpunit https://phar.phpunit.de/phpunit.phar
-chmod a+x /usr/bin/phpunit
+sudo curl -o /usr/bin/phpunit https://phar.phpunit.de/phpunit.phar
+sudo chmod a+x /usr/bin/phpunit
 
 #############################################################################
 # COMPOSER
@@ -42,7 +42,7 @@ chmod a+x /usr/bin/phpunit
 sudo apt-get install -y git-core curl
 sudo echo "suhosin.executor.include.whitelist = phar" >> /etc/php5/cli/conf.d/suhosin.ini
 cd
-curl -s http://getcomposer.org/installer | php
+sudo curl -s http://getcomposer.org/installer | php
 sudo mv composer.phar /usr/bin/composer.phar
 sudo chmod a+x /usr/bin/composer.phar
 
@@ -51,8 +51,8 @@ sudo chmod a+x /usr/bin/composer.phar
 #----------------------------------------------------------------------------
 # Fix and force a coding standard on your code.
 #############################################################################
-curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/bin/php-cs-fixer
-chmod a+x /usr/bin/php-cs-fixer
+sudo curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/bin/php-cs-fixer
+sudo chmod a+x /usr/bin/php-cs-fixer
 
 #############################################################################
 # GEOIP
