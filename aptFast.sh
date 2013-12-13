@@ -9,6 +9,5 @@ echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu $UBUNTU_NAME main" 		>
 echo "deb-src http://ppa.launchpad.net/apt-fast/stable/ubuntu $UBUNTU_NAME main" 	>> /etc/apt/sources.list
 
 ## INSTALL 
-apt-get upgrade
 apt-get update
 apt-get install -y apt-fast --force-yes
