@@ -13,7 +13,6 @@ fi
 sudo apt-get install -y python-software-properties
 echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
-sudo apt-get -y upgrade
 
 sudo apt-get install -y build-essential libpcre3 libpcre3-dev
 
