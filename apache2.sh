@@ -507,6 +507,7 @@ then
 fi  
 
 ## Restart apache2
+sudo a2enmod authz_core
 sudo service apache2 restart
 
 exit 0
