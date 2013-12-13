@@ -15,7 +15,6 @@ echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
 
 sudo apt-get install -y apache2 
-sudo apt-get install -y libapache2-mod-geoip 
 
 #############################################################################
 # ENABLE THE BASIC APACHE MODULES
