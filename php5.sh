@@ -17,6 +17,12 @@ sudo apt-get -y update
 sudo apt-get install -y build-essential libpcre3 libpcre3-dev
 
 #############################################################################
+### Generate all the locales to support i18n in PHP5
+#############################################################################
+sudo cp /usr/share/i18n/SUPPORTED /var/lib/locales/supported.d/local
+sudo locale-gen
+
+#############################################################################
 # BASE PHP
 #############################################################################
 sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php5-apcu
