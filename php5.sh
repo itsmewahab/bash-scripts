@@ -60,6 +60,16 @@ sudo chmod a+x /usr/bin/composer.phar
 sudo curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/bin/php-cs-fixer
 sudo chmod a+x /usr/bin/php-cs-fixer
 
+
+#############################################################################
+# PHPDox
+#----------------------------------------------------------------------------
+# Documentation generator.
+#############################################################################
+sudo apt-get install php5-xsl
+sudo curl http://phpdox.de/releases/phpdox.phar -o /usr/bin/phpdox
+sudo chmod a+x /usr/bin/phpdox
+
 #############################################################################
 # GEOIP
 #----------------------------------------------------------------------------
