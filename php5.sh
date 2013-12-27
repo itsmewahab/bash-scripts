@@ -71,6 +71,15 @@ sudo curl http://phpdox.de/releases/phpdox.phar -o /usr/bin/phpdox
 sudo chmod a+x /usr/bin/phpdox
 
 #############################################################################
+# phpmd
+#----------------------------------------------------------------------------
+# PHP Mess detector
+#############################################################################
+pear channel-discover pear.phpmd.org
+pear channel-discover pear.pdepend.org
+pear install --alldeps phpmd/PHP_PMD
+
+#############################################################################
 # GEOIP
 #----------------------------------------------------------------------------
 # Geolocation library for php
