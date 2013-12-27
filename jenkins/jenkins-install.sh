@@ -7,10 +7,4 @@ sudo apt-get update
 sudo apt-get install jenkins
 
 ## Configure Jenkins SSH
-sudo su - jenkins
-cd
-ssh-keygen
-
-## Disable warning yes/no when doing ssh connections using git
-echo 'StrictHostKeyChecking no' >>  ~/.ssh/config
-echo 'UserKnownHostsFile /dev/null' >>  ~/.ssh/config
+sudo -u jenkins -H sh -c 'cd ; ssh-keygen; echo "StrictHostKeyChecking no" >>  ~/.ssh/config; echo "UserKnownHostsFile /dev/null" >>  ~/.ssh/config'
