@@ -41,7 +41,7 @@ sudo curl -o /usr/bin/phpunit https://phar.phpunit.de/phpunit.phar
 sudo chmod a+x /usr/bin/phpunit
 
 #############################################################################
-# COMPOSER
+# composer
 #----------------------------------------------------------------------------
 # Download dependencies in your PHP projects.
 #############################################################################
@@ -49,11 +49,11 @@ sudo apt-get install -y git-core curl
 sudo echo "suhosin.executor.include.whitelist = phar" >> /etc/php5/cli/conf.d/suhosin.ini
 cd
 sudo curl -s http://getcomposer.org/installer | php
-sudo mv composer.phar /usr/bin/composer.phar
-sudo chmod a+x /usr/bin/composer.phar
+sudo mv composer.phar /usr/bin/composer
+sudo chmod a+x /usr/bin/composer
 
 #############################################################################
-# PHP-CS-FIXER
+# php-cs-fixer
 #----------------------------------------------------------------------------
 # Fix and force a coding standard on your code.
 #############################################################################
@@ -62,7 +62,7 @@ sudo chmod a+x /usr/bin/php-cs-fixer
 
 
 #############################################################################
-# PHPDox
+# phpdox
 #----------------------------------------------------------------------------
 # Documentation generator.
 #############################################################################
@@ -78,6 +78,13 @@ sudo chmod a+x /usr/bin/phpdox
 pear channel-discover pear.phpmd.org
 pear channel-discover pear.pdepend.org
 pear install --alldeps phpmd/PHP_PMD
+
+#############################################################################
+# phpcs
+#----------------------------------------------------------------------------
+# PHP Code Sniffer (style coding standard detector)
+#############################################################################
+pear install --alldeps PHP_CodeSniffer
 
 #############################################################################
 # GEOIP
