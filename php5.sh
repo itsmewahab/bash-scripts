@@ -25,7 +25,7 @@ sudo locale-gen
 #############################################################################
 # BASE PHP
 #############################################################################
-sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php5-apcu
+sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php5-apcu php5-mcrypt
 	
 #############################################################################
 # PHP LIBRARIES
