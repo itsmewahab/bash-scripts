@@ -8,3 +8,7 @@ sudo apt-get install jenkins
 
 ## Configure Jenkins SSH
 sudo -u jenkins -H sh -c 'cd ; ssh-keygen; echo "StrictHostKeyChecking no" >>  ~/.ssh/config; echo "UserKnownHostsFile /dev/null" >>  ~/.ssh/config'
+
+## Change Jenkins default user if necessary by editing:
+# nano /etc/default/jenkins
+# service jenkins restart
