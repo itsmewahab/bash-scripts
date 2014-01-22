@@ -305,3 +305,52 @@ END_HEREDOC
 echo "$VAR" >> /etc/nginx/mime.types 
 
 
+
+
+
+
+VAR=$(cat <<'END_HEREDOC'
+
+###############################################################################
+# REDIRECT www.example.com to example.com
+###############################################################################
+server {
+    server_name www.example.com;
+    rewrite ^ http://example.com$request_uri? permanent;
+}
+
+###############################################################################
+# example.com
+###############################################################################
+server {
+	listen   80;
+	server_name example.com;
+
+  ## Set Document Root
+	root /var/www/example.com/;
+
+  ## Set Directory Index
+	index index.php index.html index.htm;
+
+  ## PHP: Redirect all request to index.php
+	location / 
+	{
+		try_files $uri $uri/ /index.php$is_args$args;
+	}
+
+  ## PHP: Pass all PHP request to PHP-FPM
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+	}
+	
+}
+
+
+
+END_HEREDOC
+)
+
+echo "$VAR" >> /etc/nginx/sites-available/example.com
