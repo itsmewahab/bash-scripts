@@ -5,132 +5,241 @@ sudo apt-get install -f nginx
 
 VAR=$(cat <<'END_HEREDOC'
 
-# Set another default user than root for security reasons
-user       www-data;
+# nginx Configuration File
+# http://wiki.nginx.org/Configuration
 
-# As a thumb rule: One per CPU. If you are serving a large amount
-# of static files, which requires blocking disk reads, you may want
-# to increase this from the number of cpu_cores available on your
-# system.
-#
+# Run as a less privileged user for security reasons.
+user www www;
+
+# How many worker threads to run;
+# "auto" sets it to the number of CPU cores available in the system, and
+# offers the best performance. Don't set it higher than the number of CPU
+# cores if changing this parameter.
+
 # The maximum number of connections for Nginx is calculated by:
 # max_clients = worker_processes * worker_connections
-worker_processes 1;
+worker_processes 2;
 
-# Maximum file descriptors that can be opened per process
-# This should be > worker_connections
+# Maximum open file descriptors per process;
+# should be > worker_connections.
 worker_rlimit_nofile 8192;
 
 events {
-  # When you need > 8000 * cpu_cores connections, you start optimizing
-  # your OS, and this is probably the point at where you hire people
-  # who are smarter than you, this is *a lot* of requests.
-  worker_connections  8000;
-
-  # This sets up some smart queueing for accept(2)'ing requests
-  # Set it to "on" if you have > worker_processes
-  accept_mutex off;
-
-  # These settings are OS specific, by defualt Nginx uses select(2),
-  # however, for a large number of requests epoll(2) and kqueue(2)
-  # are generally faster than the default (select(2))
-  # use epoll; # enable for Linux 2.6+
-  # use kqueue; # enable for *BSD (FreeBSD, OS X, ..)
+  # When you need > 8000 * cpu_cores connections, you start optimizing your OS,
+  # and this is probably the point at which you hire people who are smarter than
+  # you, as this is *a lot* of requests.
+  worker_connections 8000;
 }
 
-# Change these paths to somewhere that suits you!
-error_log  logs/error.log;
-pid        logs/nginx.pid;
+# Default error log file
+# (this is only used when you don't override error_log on a server{} level)
+error_log  logs/error.log warn;
+pid        /var/run/nginx.pid;
 
 http {
-  # Set the mime-types via the mime.types external file
-  include       nginx-mime.types;
 
-  # And the fallback mime-type
+  # Hide nginx version information.
+  server_tokens off;
+
+  # Define the MIME types for files.
+  include       /etc/nginx/mime.types;
   default_type  application/octet-stream;
 
-  # Format for our log files
-  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
-    '"$request" $body_bytes_sent "$http_referer" '
-    '"$http_user_agent" "$http_x_forwarded_for"';
+  # Format to use in log files
+  log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
 
-  # Click tracking!
-  access_log   logs/access.log  main;
+  # Default log file
+  # (this is only used when you don't override access_log on a server{} level)
+  access_log logs/access.log main;
 
-  # ~2 seconds is often enough for HTML/CSS, but connections in
-  # Nginx are cheap, so generally it's safe to increase it
-  keepalive_timeout  5;
+  # How long to allow each connection to stay idle; longer values are better
+  # for each individual client, particularly for SSL, but means that worker
+  # connections are tied up longer. (Default: 65)
+  keepalive_timeout 20;
 
-  # You usually want to serve static files with Nginx
-  sendfile on;
+  # Speed up file transfers by using sendfile() to copy directly
+  # between descriptors rather than using read()/write().
+  sendfile        on;
 
-  tcp_nopush on; # off may be better for Comet/long-poll stuff
-  tcp_nodelay off; # on may be better for Comet/long-poll stuff
+  # Tell Nginx not to send out partial frames; this increases throughput
+  # since TCP frames are filled up before being sent out. (adds TCP_CORK)
+  tcp_nopush      on;
 
-  # Enable Gzip
-  gzip  on;
-  gzip_http_version 1.0;
-  gzip_comp_level 2;
-  gzip_min_length 1100;
-  gzip_buffers     4 8k;
-  gzip_proxied any;
+  # Tell Nginx to enable the Nagle buffering algorithm for TCP packets, which
+  # collates several smaller packets together into one larger packet, thus saving
+  # bandwidth at the cost of a nearly imperceptible increase to latency. (removes TCP_NODELAY)
+  tcp_nodelay     off;
+
+
+  # Compression
+
+  # Enable Gzip compressed.
+  gzip on;
+
+  # Enable compression both for HTTP/1.0 and HTTP/1.1 (required for CloudFront).
+  gzip_http_version  1.0;
+
+  # Compression level (1-9).
+  # 5 is a perfect compromise between size and cpu usage, offering about
+  # 75% reduction for most ascii files (almost identical to level 9).
+  gzip_comp_level    5;
+
+  # Don't compress anything that's already small and unlikely to shrink much
+  # if at all (the default is 20 bytes, which is bad as that usually leads to
+  # larger files after gzipping).
+  gzip_min_length    256;
+
+  # Compress data even for clients that are connecting to us via proxies,
+  # identified by the "Via" header (required for CloudFront).
+  gzip_proxied       any;
+
+  # Tell proxies to cache both the gzipped and regular version of a resource
+  # whenever the client's Accept-Encoding capabilities header varies;
+  # Avoids the issue where a non-gzip capable client (which is extremely rare
+  # today) would display gibberish if their proxy gave them the gzipped version.
+  gzip_vary          on;
+
+  # Compress all output labeled with one of the following MIME-types.
   gzip_types
-    # text/html is always compressed by HttpGzipModule
-    text/css
-    text/javascript
-    text/xml
-    text/plain
-    text/x-component
+    application/atom+xml
     application/javascript
     application/json
-    application/xml
     application/rss+xml
-    font/truetype
-    font/opentype
     application/vnd.ms-fontobject
-    image/svg+xml;
+    application/x-font-ttf
+    application/x-web-app-manifest+json
+    application/xhtml+xml
+    application/xml
+    font/opentype
+    image/svg+xml
+    image/x-icon
+    text/css
+    text/plain
+    text/x-component;
+  # text/html is always compressed by HttpGzipModule
 
-  gzip_static on;
 
-  gzip_proxied        expired no-cache no-store private auth;
-  gzip_disable        "MSIE [1-6]\.";
-  gzip_vary           on;
+  # This should be turned on if you are going to have pre-compressed copies (.gz) of
+  # static files available. If not it should be left off as it will cause extra I/O
+  # for the check. It is best if you enable this in a location{} block for
+  # a specific directory, or on an individual server{} level.
+  # gzip_static on;
 
-  server {
-    # listen 80 default deferred; # for Linux
-    # listen 80 default accept_filter=httpready; # for FreeBSD
-    listen 80 default;
+  # Protect against the BEAST attack by preferring RC4-SHA when using SSLv3 and TLS protocols.
+  # Note that TLSv1.1 and TLSv1.2 are immune to the beast attack but only work with OpenSSL v1.0.1 and higher and has limited client support.
+  ssl_protocols              SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers                RC4:HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers  on;
 
-    # e.g. "localhost" to accept all connections, or "www.example.com"
-    # to handle the requests for "example.com" (and www.example.com)
-    server_name _;
+  # Optimize SSL by caching session parameters for 10 minutes. This cuts down on the number of expensive SSL handshakes.
+  # The handshake is the most CPU-intensive operation, and by default it is re-negotiated on every new/parallel connection.
+  # By enabling a cache (of type "shared between all Nginx workers"), we tell the client to re-use the already negotiated state.
+  # Further optimization can be achieved by raising keepalive_timeout, but that shouldn't be done unless you serve primarily HTTPS.
+  ssl_session_cache    shared:SSL:10m; # a 1mb cache can hold about 4000 sessions, so we can hold 40000 sessions
+  ssl_session_timeout  10m;
 
-    # Path for static files
-    root /sites/example.com/public;
+  # This default SSL certificate will be served whenever the client lacks support for SNI (Server Name Indication).
+  # Make it a symlink to the most important certificate you have, so that users of IE 8 and below on WinXP can see your main site without SSL errors.
+  #ssl_certificate      /etc/nginx/default_ssl.crt;
+  #ssl_certificate_key  /etc/nginx/default_ssl.key;
 
-    # Custom 404 page
-    error_page 404 /404.html;
+  include sites-enabled/*;
+  
+  # This tells Nginx to cache open file handles, "not found" errors, metadata about files and their permissions, etc.
+  #
+  # The upside of this is that Nginx can immediately begin sending data when a popular file is requested,
+  # and will also know to immediately send a 404 if a file is missing on disk, and so on.
+  #
+  # However, it also means that the server won't react immediately to changes on disk, which may be undesirable.
+  #
+  # In the below configuration, inactive files are released from the cache after 20 seconds, whereas
+  # active (recently requested) files are re-validated every 30 seconds.
+  #
+  # Descriptors will not be cached unless they are used at least 2 times within 20 seconds (the inactive time).
+  #
+  # A maximum of the 1000 most recently used file descriptors can be cached at any time.
+  #
+  # Production servers with stable file collections will definitely want to enable the cache.
+  open_file_cache          max=1000 inactive=20s;
+  open_file_cache_valid    30s;
+  open_file_cache_min_uses 2;
+  open_file_cache_errors   on;  
+  
+ # Prevent clients from accessing hidden files (starting with a dot)
+ # This is particularly important if you store .htpasswd files in the site hierarchy
+ location ~* (?:^|/)\. {
+    deny all;
+ }
 
+ # Prevent clients from accessing to backup/config/source files
+ location ~* (?:\.(?:bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$ {
+    deny all;
+ }  
+ 
+ 
+# Expire rules for static content
+
+ # No default expire rule. This config mirrors that of apache as outlined in the
+ # html5-boilerplate .htaccess file. However, nginx applies rules by location,
+ # the apache rules are defined by type. A concequence of this difference is that
+ # if you use no file extension in the url and serve html, with apache you get an
+ # expire time of 0s, with nginx you'd get an expire header of one month in the
+ # future (if the default expire rule is 1 month). Therefore, do not use a
+ # default expire rule with nginx unless your site is completely static
+
+ # cache.appcache, your document html and data
+ location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+  expires -1;
+  access_log logs/static.log;
+ }
+
+ # Feed
+ location ~* \.(?:rss|atom)$ {
+  expires 1h;
+  add_header Cache-Control "public";
+ }
+
+ # Media: images, icons, video, audio, HTC
+ location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+  expires 1M;
+  access_log off;
+  add_header Cache-Control "public";
+ }
+
+ # CSS and Javascript
+ location ~* \.(?:css|js)$ {
+  expires 1y;
+  access_log off;
+  add_header Cache-Control "public";
+ }
+
+ # WebFonts
+ # If you are NOT using cross-domain-fonts.conf, uncomment the following directive
+ # location ~* \.(?:ttf|ttc|otf|eot|woff)$ {
+ #  expires 1M;
+ #  access_log off;
+ #  add_header Cache-Control "public";
+ # }
+
+ 
+ # Cross domain webfont access
+ location ~* \.(?:ttf|ttc|otf|eot|woff)$ {
+    add_header "Access-Control-Allow-Origin" "*";
+
+    # Also, set cache rules for webfonts.
+    #
+    # See http://wiki.nginx.org/HttpCoreModule#location
+    # And https://github.com/h5bp/server-configs/issues/85
+    # And https://github.com/h5bp/server-configs/issues/86
     expires 1M;
-
-    # Static assets
-    location ~* ^.+\.(manifest|appcache)$ {
-      expires -1;
-      root   /sites/example.com/public;
-      access_log logs/static.log;
-    }
-
-    # Set expires max on static file types
-    location ~* ^.+\.(css|js|jpg|jpeg|gif|png|ico|gz|svg|svgz|ttf|otf|woff|eot|mp4|ogg|ogv|webm)$ {
-      expires max;
-      root   /sites/example.com/public;
-      access_log off;
-    }
-
-    # opt-in to the future
-    add_header "X-UA-Compatible" "IE=Edge,chrome=1";
-
-  }
+    access_log off;
+    add_header Cache-Control "public";
+ } 
+ 
+ 
+ 
 }
 
 END_HEREDOC
