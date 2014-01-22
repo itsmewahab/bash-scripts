@@ -9,7 +9,7 @@ VAR=$(cat <<'END_HEREDOC'
 # http://wiki.nginx.org/Configuration
 
 # Run as a less privileged user for security reasons.
-user www www;
+user www-data;
 
 # How many worker threads to run;
 # "auto" sets it to the number of CPU cores available in the system, and
@@ -18,7 +18,7 @@ user www www;
 
 # The maximum number of connections for Nginx is calculated by:
 # max_clients = worker_processes * worker_connections
-worker_processes 2;
+worker_processes 4;
 
 # Maximum open file descriptors per process;
 # should be > worker_connections.
