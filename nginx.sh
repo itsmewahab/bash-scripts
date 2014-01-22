@@ -26,7 +26,8 @@ worker_processes 4;
 # should be > worker_connections.
 worker_rlimit_nofile 8192;
 
-events {
+events 
+{
   # When you need > 8000 * cpu_cores connections, you start optimizing your OS,
   # and this is probably the point at which you hire people who are smarter than
   # you, as this is *a lot* of requests.
@@ -39,6 +40,10 @@ error_log  logs/error.log warn;
 pid        /var/run/nginx.pid;
 
 http {
+  
+  server_names_hash_bucket_size 64;
+  fastcgi_hide_header X-Powered-By;
+  proxy_hide_header X-Powered-By;
 
   # Hide nginx version information.
   server_tokens off;
@@ -169,81 +174,7 @@ http {
   open_file_cache_min_uses 2;
   open_file_cache_errors   on;  
   
- # Prevent clients from accessing hidden files (starting with a dot)
- # This is particularly important if you store .htpasswd files in the site hierarchy
- location ~* (?:^|/)\. {
-    deny all;
- }
-
- # Prevent clients from accessing to backup/config/source files
- location ~* (?:\.(?:bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$ {
-    deny all;
- }  
  
- 
-# Expire rules for static content
-
- # No default expire rule. This config mirrors that of apache as outlined in the
- # html5-boilerplate .htaccess file. However, nginx applies rules by location,
- # the apache rules are defined by type. A concequence of this difference is that
- # if you use no file extension in the url and serve html, with apache you get an
- # expire time of 0s, with nginx you'd get an expire header of one month in the
- # future (if the default expire rule is 1 month). Therefore, do not use a
- # default expire rule with nginx unless your site is completely static
-
- # cache.appcache, your document html and data
- location ~* \.(?:manifest|appcache|html?|xml|json)$ {
-  expires -1;
-  access_log logs/static.log;
- }
-
- # Feed
- location ~* \.(?:rss|atom)$ {
-  expires 1h;
-  add_header Cache-Control "public";
- }
-
- # Media: images, icons, video, audio, HTC
- location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
-  expires 1M;
-  access_log off;
-  add_header Cache-Control "public";
- }
-
- # CSS and Javascript
- location ~* \.(?:css|js)$ {
-  expires 1y;
-  access_log off;
-  add_header Cache-Control "public";
- }
-
- # WebFonts
- # If you are NOT using cross-domain-fonts.conf, uncomment the following directive
- # location ~* \.(?:ttf|ttc|otf|eot|woff)$ {
- #  expires 1M;
- #  access_log off;
- #  add_header Cache-Control "public";
- # }
-
- 
- # Cross domain webfont access
- location ~* \.(?:ttf|ttc|otf|eot|woff)$ {
-    add_header "Access-Control-Allow-Origin" "*";
-
-    # Also, set cache rules for webfonts.
-    #
-    # See http://wiki.nginx.org/HttpCoreModule#location
-    # And https://github.com/h5bp/server-configs/issues/85
-    # And https://github.com/h5bp/server-configs/issues/86
-    expires 1M;
-    access_log off;
-    add_header Cache-Control "public";
- } 
- 
- 
- server_tokens off;
- fastcgi_hide_header X-Powered-By;
- proxy_hide_header X-Powered-By 
 }
 
 END_HEREDOC
@@ -368,17 +299,9 @@ types {
 
 }
 
-
-
-
-
 END_HEREDOC
 )
 
 echo "$VAR" >> /etc/nginx/mime.types 
-
-
-
-
 
 
