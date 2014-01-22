@@ -1,7 +1,9 @@
 #!/bin/bash
 
-sudo apt-get install -f nginx
 
+sudo apt-get install -f nginx
+sudo mkdir -p /etc/nginx/logs/
+sudo touch /etc/nginx/logs/error.log
 
 VAR=$(cat <<'END_HEREDOC'
 
