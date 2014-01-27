@@ -4,6 +4,7 @@ sudo apt-get install -y nginx
 
 sudo mkdir -p /etc/nginx/logs/
 sudo touch /etc/nginx/logs/error.log
+sudo touch /usr/share/nginx/logs/error.log
 
 sudo mkdir -p /etc/nginx/sites-available/helpers/
 sudo touch /etc/nginx/sites-available/helpers/extra.conf
