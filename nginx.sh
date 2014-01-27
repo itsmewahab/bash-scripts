@@ -185,7 +185,7 @@ http {
 END_HEREDOC
 )
 
-echo "$VAR" >> /etc/nginx/nginx.conf 
+echo "$VAR" > /etc/nginx/nginx.conf 
 
 
 
@@ -307,7 +307,8 @@ types {
 END_HEREDOC
 )
 
-echo "$VAR" >> /etc/nginx/mime.types 
+
+echo "$VAR" > /etc/nginx/mime.types 
 
 
 
@@ -388,7 +389,7 @@ VAR=$(cat <<'END_HEREDOC'
 END_HEREDOC
 )
 
-echo "$VAR" >> /etc/nginx/sites-available/helpers/extra.conf
+echo "$VAR" > /etc/nginx/sites-available/helpers/extra.conf
 
 
 
@@ -446,4 +447,4 @@ server {
 END_HEREDOC
 )
 
-echo "$VAR" >> /etc/nginx/sites-available/example.com
+echo "$VAR" > /etc/nginx/sites-available/example.com
