@@ -9,7 +9,7 @@ then
   exit 1
 fi
 
-if [ "$#" = "2" ];
+if [ "$#" != "1" ];
 then
   echo "" 
   echo "Usage: ./$0 <domain_name>"
