@@ -14,7 +14,7 @@ sudo apt-get install -y python-software-properties
 echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
 
-sudo apt-get install -y build-essential libpcre3 libpcre3-dev
+sudo apt-get install -y build-essential libpcre3 libpcre3-dev imagemagick
 
 #############################################################################
 ### Generate all the locales to support i18n in PHP5
