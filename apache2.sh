@@ -471,8 +471,8 @@ FileETag None
 # |                                                                            |
 # | by Nil Portugués Calderó   <contact@nilportugues.com>                      |
 # ------------------------------------------------------------------------------
-LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@fields\": { \"client\": \"%a\", \"duration_sec\": %T, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" common
-LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@message\": \"%r\", \"@fields\": { \"user-agent\": \"%{User-agent}i\", \"client\": \"%a\", \"duration_usec\": %D, \"duration_sec\": %T, \"status\": %s, \"request_path\": \"%U\", \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" combined
+LogFormat "{ \"timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"fields\": { \"client\": \"%a\", \"duration_sec\": %T, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" common
+LogFormat "{ \"timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"message\": \"%r\", \"fields\": { \"user-agent\": \"%{User-agent}i\", \"client\": \"%a\", \"duration_usec\": %D, \"duration_sec\": %T, \"status\": %s, \"request_path\": \"%U\", \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" combined
 
 
 
