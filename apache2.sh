@@ -466,6 +466,16 @@ FileETag None
 #    Header set Connection Keep-Alive
 # </IfModule>
 
+# ------------------------------------------------------------------------------
+# | Replace standard formatted logs and represent them as JSON                 |
+# |                                                                            |
+# | by Nil Portugués Calderó   <contact@nilportugues.com>                      |
+# ------------------------------------------------------------------------------
+LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@fields\": { \"client\": \"%a\", \"duration_usec\": %D, \"status\": %s, \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" common
+LogFormat "{ \"@timestamp\": \"%{%Y-%m-%dT%H:%M:%S%z}t\", \"@message\": \"%r\", \"@fields\": { \"user-agent\": \"%{User-agent}i\", \"client\": \"%a\", \"duration_usec\": %D, \"duration_sec\": %T, \"status\": %s, \"request_path\": \"%U\", \"request\": \"%U%q\", \"method\": \"%m\", \"referrer\": \"%{Referer}i\" } }" combined
+
+
+
 END_HEREDOC
 )
 
