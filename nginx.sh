@@ -61,9 +61,8 @@ http {
   default_type  application/octet-stream;
 
   # Format to use in log files
-  log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                    '$status $body_bytes_sent "$http_referer" '
-                    '"$http_user_agent" "$http_x_forwarded_for"';
+  log_format main '{ "@timestamp": "$time_local", "@fields": { "client": "$remote_addr", "duration_sec": "$request_time", "status": "$status", "request": "$request", "method": "$request_method", "referrer": "$http_referer" } }';
+
 
   # Default log file
   # (this is only used when you don't override access_log on a server{} level)
