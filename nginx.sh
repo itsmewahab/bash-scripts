@@ -61,7 +61,7 @@ http {
   default_type  application/octet-stream;
 
   # Format to use in log files
-  log_format main '{ "@timestamp": "$time_local", "@fields": { "client": "$remote_addr", "duration_sec": "$request_time", "status": "$status", "request": "$request", "method": "$request_method", "referrer": "$http_referer" } }';
+  log_format main '{ "timestamp": "$time_local", "fields": { "client": "$remote_addr", "duration_sec": "$request_time", "status": "$status", "request": "$request", "method": "$request_method", "referrer": "$http_referer" } }';
 
 
   # Default log file
