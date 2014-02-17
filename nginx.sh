@@ -8,8 +8,8 @@ sudo touch /etc/nginx/logs/error.log
 sudo mkdir -p /usr/share/nginx/logs/
 sudo touch /usr/share/nginx/logs/error.log
 
-sudo mkdir -p /etc/nginx/sites-available/helpers/
-sudo touch /etc/nginx/sites-available/helpers/extra.conf
+sudo mkdir -p /etc/nginx/helpers/
+sudo touch /etc/nginx/helpers/extra.conf
 
 
 
@@ -391,7 +391,7 @@ VAR=$(cat <<'END_HEREDOC'
 END_HEREDOC
 )
 
-echo "$VAR" > /etc/nginx/sites-available/helpers/extra.conf
+echo "$VAR" > /etc/nginx/helpers/extra.conf
 
 
 
@@ -441,7 +441,7 @@ server {
 		include fastcgi_params;
 	}
 	
-	include /etc/nginx/sites-available/helpers/extra.conf
+	include /etc/nginx/helpers/extra.conf
 }
 
 
