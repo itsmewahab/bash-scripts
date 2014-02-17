@@ -48,8 +48,9 @@ error_log  logs/error.log warn;
 pid        /var/run/nginx.pid;
 
 http {
-  
+  types_hash_max_size 2048;
   server_names_hash_bucket_size 64;
+
   fastcgi_hide_header X-Powered-By;
   proxy_hide_header X-Powered-By;
 
