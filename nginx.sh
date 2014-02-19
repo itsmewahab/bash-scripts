@@ -1,5 +1,14 @@
 #!/bin/bash
 
+############################################################################
+#
+# Author: Nil Portugués Calderó <contact@nilportugues.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+############################################################################
+ 
 sudo apt-get install -y nginx
 
 sudo mkdir -p /etc/nginx/logs/
@@ -10,8 +19,6 @@ sudo touch /usr/share/nginx/logs/error.log
 
 sudo mkdir -p /etc/nginx/helpers/
 sudo touch /etc/nginx/helpers/extra.conf
-
-
 
 VAR=$(cat <<'END_HEREDOC'
 
@@ -421,31 +428,32 @@ server {
 server {
 	listen   80;
 	server_name example.com;
+	
+	## Logging
+	access_log	/var/log/nginx/example.com.access.log main;
+    	error_log	/var/log/nginx/example.com.error.log;
 
-  ## Set Document Root
+  	## Set Document Root
 	root /var/www/example.com/;
 
-  ## Set Directory Index
+  	## Set Directory Index
 	index index.php index.html index.htm;
 
-  ## PHP: Redirect all request to index.php
+  	## PHP: Redirect all request to index.php
 	location / 
 	{
 		try_files $uri $uri/ /index.php$is_args$args;
+		include /etc/nginx/helpers/extra.conf
 	}
 
-  ## PHP: Pass all PHP request to PHP-FPM
+  	## PHP: Pass all PHP request to PHP-FPM
 	location ~ \.php$ {
 		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
 		include fastcgi_params;
 	}
-	
-	include /etc/nginx/helpers/extra.conf
 }
-
-
 
 END_HEREDOC
 )
