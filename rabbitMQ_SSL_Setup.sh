@@ -1,5 +1,14 @@
 #!/bin/bash
 
+############################################################################
+#
+# Author: Nil Portugués Calderó <contact@nilportugues.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+############################################################################
+
 PWD=`pwd`
 RABBITMQ_PATH="/etc/rabbitmq"
 
@@ -15,59 +24,59 @@ CLIENT_PASS=$5
 
 read -r -d '' SSL_CONFIG <<EOF
 
-[ ca ]											\n                                                     
-default_ca = testca 							\n                                       
-												\n
-[ testca ] 										\n                                                
-dir = .   										\n                                                 
-certificate = \$dir/cacert.pem  				\n                            
-database = \$dir/index.txt 						\n                                 
-new_certs_dir = \$dir/certs 					\n                                
-private_key = \$dir/private/cakey.pem 			\n                      
-serial = \$dir/serial  							\n                                     
-												\n
-default_crl_days = 7  							\n                                     
-default_days = 7300  							\n                                       
-default_md = sha1   							\n                                       
-												\n
-policy = testca_policy 							\n                                    
-x509_extensions = certificate_extensions     	\n              
-												\n 
-[ testca_policy ]    							\n                                      
-commonName = supplied  							\n                                    
-stateOrProvinceName = optional  				\n                           
-countryName = optional     						\n                                
-emailAddress = optional     					\n                               
-organizationName = optional 					\n                               
-organizationalUnitName = optional   			\n                       
-												\n
-[ certificate_extensions ]  					\n                               
-basicConstraints = CA:false  					\n                              
-												\n
-[ req ]            								\n                                       
-default_bits = 2048    							\n                                   
-default_keyfile = ./private/cakey.pem 			\n                     
-default_md = sha1        						\n                                  
-prompt = yes     								\n                                          
-distinguished_name = root_ca_distinguished_name \n        
-x509_extensions = root_ca_extensions   			\n                    
-												\n
-[ root_ca_distinguished_name ]   				\n                          
-commonName = hostname     						\n                                 
-												\n
-[ root_ca_extensions ]     						\n                                
-basicConstraints = CA:true    					\n                             
-keyUsage = keyCertSign, cRLSign   				\n                         
-												\n
-[ client_ca_extensions ]   						\n                                
-basicConstraints = CA:false   					\n                             
-keyUsage = digitalSignature     				\n                           
-extendedKeyUsage = 1.3.6.1.5.5.7.3.2  			\n                     
-												\n
-[ server_ca_extensions ]     					\n                              
-basicConstraints = CA:false  					\n                              
-keyUsage = keyEncipherment    					\n                             
-extendedKeyUsage = 1.3.6.1.5.5.7.3.1			\n
+[ ca ]											                                                    
+default_ca = testca 							                                     
+												
+[ testca ] 										                                              
+dir = .   										                                                
+certificate = \$dir/cacert.pem  				                            
+database = \$dir/index.txt 					                               
+new_certs_dir = \$dir/certs 					                               
+private_key = \$dir/private/cakey.pem 			                    
+serial = \$dir/serial  							                                    
+											
+default_crl_days = 7  							                                    
+default_days = 7300  							                                      
+default_md = sha1   							                                       
+												
+policy = testca_policy 						                                    
+x509_extensions = certificate_extensions     	           
+											
+[ testca_policy ]    							                                     
+commonName = supplied  						                                   
+stateOrProvinceName = optional  				                          
+countryName = optional     					                                
+emailAddress = optional     					                               
+organizationName = optional 				                              
+organizationalUnitName = optional   			                     
+											
+[ certificate_extensions ]  					                             
+basicConstraints = CA:false  					                             
+											
+[ req ]            								                                      
+default_bits = 2048                                    
+default_keyfile = ./private/cakey.pem                      
+default_md = sha1                                   
+prompt = yes     	                                        
+distinguished_name = root_ca_distinguished_name       
+x509_extensions = root_ca_extensions 
+
+[ root_ca_distinguished_name ]
+commonName = hostname   
+
+[ root_ca_extensions ]                          
+basicConstraints = CA:true                
+keyUsage = keyCertSign, cRLSign 
+
+[ client_ca_extensions ]  
+basicConstraints = CA:false 
+keyUsage = digitalSignature 
+extendedKeyUsage = 1.3.6.1.5.5.7.3.2  
+
+[ server_ca_extensions ] 
+basicConstraints = CA:false
+keyUsage = keyEncipherment
+extendedKeyUsage = 1.3.6.1.5.5.7.3.1
 
 EOF
 
@@ -78,7 +87,7 @@ EOF
 setupCA()
 {
 
-	echo $SSL_CONFIG > "openssl.cnf"
+	echo -e "$SSL_CONFIG" > "openssl.cnf"
 	export OPENSSL_CONF="../openssl.cnf"
 
 	mkdir -p ca
@@ -170,7 +179,7 @@ copyServerKeysToRabbitMQ()
     ## Copy over SSL Certificate keys over RabbitMQ
     sudo cp ./ca/cacert.pem $RABBITMQ_PATH/ssl/ca/cacert.pem
     sudo cp ./server/*.key.pem $RABBITMQ_PATH/ssl/server/
-   	sudo cp ./server/*.cert.pem $RABBITMQ_PATH/ssl/server/
+    sudo cp ./server/*.cert.pem $RABBITMQ_PATH/ssl/server/
 }
 
 copyClientKeysOutsideTempDir()
