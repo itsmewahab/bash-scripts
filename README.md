@@ -23,15 +23,19 @@ Most of the scripts include configurations too, so once the script ends is up an
 - [Redis](https://raw.github.com/nilopc/bashInstallers/master/redis.sh)
 - [MongoDB](https://raw.github.com/nilopc/bashInstallers/master/mongoDB.sh)
 
+## E-mail
+- [iRedMail](https://raw.github.com/nilopc/bashInstallers/master/iredmail.sh)
+- [iRedMail DKIM generator](https://raw.github.com/nilopc/bashInstallers/master/iredmail-amavisd-dkim.sh)
+- [Sendmail](https://raw.github.com/nilopc/bashInstallers/master/sendMail.sh)
+ 
 ## Fulltext search engines
 - [ElasticSearch](https://raw.github.com/nilopc/bashInstallers/master/elasticsearch.sh)
 
 ## Queue Systems
 - [RabbitMQ](https://raw.github.com/nilopc/bashInstallers/master/rabbitMQ.sh)
 
-## Others
+## Tools & Helpers
 - [AptFast](https://raw.github.com/nilopc/bashInstallers/master/aptfast.sh)
-- [Sendmail](https://raw.github.com/nilopc/bashInstallers/master/sendMail.sh)
 - [jpegtran, advpng, optipng, gifsicle](https://raw.github.com/nilopc/bashInstallers/master/imageOptimization.sh)
 - [Server Time with NTP](https://raw.github.com/nilopc/bashInstallers/master/serverTime.sh)
 - [Youtube-dl](https://raw.github.com/nilopc/bashInstallers/master/youtubeDownloader.sh)
@@ -40,4 +44,3 @@ Most of the scripts include configurations too, so once the script ends is up an
 - [Parallel](https://raw.github.com/nilopc/bashInstallers/master/parallel.sh)
 - [W3 Validator](https://raw.github.com/nilopc/bashInstallers/master/w3c_validator.sh)
 - [SSH Credential Fixer](https://raw.github.com/nilopc/bashInstallers/master/ssh-credential-fixer.sh)
-- [Amavis DKIM generator](https://raw.github.com/nilopc/bashInstallers/master/iredmail-amavisd-dkim.sh)
