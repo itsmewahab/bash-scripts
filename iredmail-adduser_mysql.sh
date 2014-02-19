@@ -77,6 +77,8 @@ then
 fi
 
 echo ''
+echo 'USE vmail;'
+echo ''
 echo $(generate_sql $1 $2 $3)
 echo ''
 
