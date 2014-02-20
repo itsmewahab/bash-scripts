@@ -6,7 +6,7 @@ My installation scripts for **Ubuntu Server**.
 Most of the scripts include configurations too, so once the script ends is up and ready to be used.
 
 ## Web Languages
-- [PHP 5.5 (latest)](https://raw.github.com/nilopc/bashInstallers/master/php5.sh)
+- [PHP 5.5 (latest) + HHVM](https://raw.github.com/nilopc/bashInstallers/master/php5.sh)
 - [NodeJs (latest)](https://raw.github.com/nilopc/bashInstallers/master/nodejs.sh)
 
 ## Web Servers
