@@ -41,13 +41,6 @@ sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php
 #############################################################################
 sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspell php5-ps php5-pgsql php5-odbc php5-mysql php5-ming php5-mhash php5-memcached php5-memcache php5-mcrypt php5-intl php5-imap php5-imagick php5-geoip php5-gd php5-dev php5-dbg php5-curl
 
-#############################################################################
-# FACEBOOK'S HHVM
-#############################################################################
-wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
-echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list
-sudo apt-get -y update
-sudo apt-get install -y --force-yes hhvm hhvm-fastcgi
 
 #############################################################################
 # PHPUNIT
