@@ -47,7 +47,7 @@ sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspel
 wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
 echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list
 sudo apt-get -y update
-sudo apt-get -y install hhvm
+sudo apt-get install -y --force-yes hhvm hhvm-fastcgi
 
 #############################################################################
 # PHPUNIT
