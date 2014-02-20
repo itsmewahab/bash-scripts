@@ -37,6 +37,17 @@ echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list
 sudo apt-get -y update
 sudo apt-get install -y --force-yes nginx hhvm hhvm-fastcgi
 
+
+## For production servers, you’ll almost certainly want to enable JIT (Just in Time) 
+## compilation to progressively turn the bytecode contained in hhvm.hhbc.sq3 into native code. 
+## Depending on exactly what your code base is doing, this will result in performance 
+## improvements of anywhere from 50% to 300% (100% seems to be a fairly common average).
+if [ $(cat /etc/hhvm/server.hdf| grep "Jit = true" | wc -l) = "0" ];
+then
+   echo -e "Eval {\n   Jit = true\n}" >> /etc/hhvm/server.hdf   
+fi
+
+## Stop hhvm and start hhvm-fastcgi
 sudo service hhvm stop
 sudo service hhvm-fastcgi start
 
