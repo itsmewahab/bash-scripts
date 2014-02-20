@@ -9,7 +9,10 @@
 #
 ############################################################################
  
-sudo apt-get install -y nginx
+if [ -z $(which nginx) ];
+then
+	sudo apt-get install -y nginx
+fi
 
 sudo mkdir -p /etc/nginx/logs/
 sudo touch /etc/nginx/logs/error.log
