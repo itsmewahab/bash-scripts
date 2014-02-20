@@ -33,11 +33,17 @@ sudo locale-gen
 #############################################################################
 wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
 echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list
+
 sudo apt-get -y update
-sudo apt-get install -y --force-yes hhvm hhvm-fastcgi
+sudo apt-get install -y --force-yes nginx hhvm hhvm-fastcgi
 
 sudo service hhvm stop
 sudo service hhvm-fastcgi start
+
+#############################################################################
+## Replace Nginx with my optimized config.
+#############################################################################
+wget -O - https://github.com/nilopc/bashInstallers/blob/master/nginx.sh | bash
 
 #############################################################################
 # Alias HHVM as PHP
@@ -66,16 +72,12 @@ sudo chmod a+x /usr/bin/composer
 
 #############################################################################
 # php-cs-fixer
-#----------------------------------------------------------------------------
-# Fix and force a coding standard on your code.
 #############################################################################
 sudo curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/bin/php-cs-fixer
 sudo chmod a+x /usr/bin/php-cs-fixer
 
 #############################################################################
 # phpmd
-#----------------------------------------------------------------------------
-# PHP Mess detector
 #############################################################################
 pear channel-discover pear.phpmd.org
 pear channel-discover pear.pdepend.org
@@ -83,7 +85,6 @@ pear install --alldeps phpmd/PHP_PMD
 
 #############################################################################
 # phpcs
-#----------------------------------------------------------------------------
-# PHP Code Sniffer (style coding standard detector)
 #############################################################################
 pear install --alldeps PHP_CodeSniffer
+
