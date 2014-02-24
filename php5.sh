@@ -19,11 +19,12 @@ then
   exit 1
 fi
 
+#############################################################################
+## Use the latest PHP repos :)
+#############################################################################
 sudo apt-get install -y python-software-properties
 echo "\n" | sudo -S add-apt-repository ppa:ondrej/php5
 sudo apt-get -y update
-
-sudo apt-get install -y build-essential libpcre3 libpcre3-dev imagemagick
 
 #############################################################################
 ### Generate all the locales to support i18n in PHP5
@@ -34,13 +35,12 @@ sudo locale-gen
 #############################################################################
 # BASE PHP
 #############################################################################
-sudo apt-get install -y php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php5-apcu php5-mcrypt
+sudo apt-get install -y build-essential libpcre3 libpcre3-dev imagemagick php5 php5-dev php5-cli php5-common php5-fpm php5-cgi php-pear php5-apcu php5-mcrypt
 	
 #############################################################################
 # PHP LIBRARIES
 #############################################################################
 sudo apt-get install -y php5-xmlrpc php5-xdebug php5-tidy php5-sqlite php5-pspell php5-ps php5-pgsql php5-odbc php5-mysql php5-ming php5-mhash php5-memcached php5-memcache php5-mcrypt php5-intl php5-imap php5-imagick php5-geoip php5-gd php5-dev php5-dbg php5-curl
-
 
 #############################################################################
 # PHPUNIT
@@ -127,56 +127,64 @@ gunzip -f *.gz
 #############################################################################
 if [ -f /etc/php5/cgi/php.ini ];
 then
-  echo "display_errors = Off" 		>> /etc/php5/cgi/php.ini 
-  echo "expose_php = Off"     		>> /etc/php5/cgi/php.ini 
-  echo "date.timezone = Europe/Madrid"  >> /etc/php5/cgi/php.ini 
+  echo "mail.add_x_header = Off" 		>> /etc/php5/cgi/php.ini 
+  
+  echo "display_errors = Off" 			>> /etc/php5/cgi/php.ini 
+  echo "expose_php = Off"     			>> /etc/php5/cgi/php.ini 
+  echo "date.timezone = Europe/Madrid"  	>> /etc/php5/cgi/php.ini 
+
+  echo "opcache.interned_strings_buffer=8"  	>> /etc/php5/cgi/php.ini 
+  echo "opcache.max_accelerated_files=4000"  	>> /etc/php5/cgi/php.ini 
+  echo "opcache.revalidate_freq=60"  		>> /etc/php5/cgi/php.ini 
+  echo "opcache.fast_shutdown=1"  		>> /etc/php5/cgi/php.ini 
+  echo "opcache.enable_cli=1"  			>> /etc/php5/cgi/php.ini   
 fi
 
 if [ -f /etc/php5/cli/php.ini ];
 then
-  echo "display_errors = Off" 		>> /etc/php5/cli/php.ini 
-  echo "expose_php = Off"     		>> /etc/php5/cli/php.ini 
-  echo "date.timezone = Europe/Madrid"  >> /etc/php5/cli/php.ini 
+  echo "mail.add_x_header = Off" 		>> /etc/php5/cli/php.ini 
+	
+  echo "display_errors = Off" 			>> /etc/php5/cli/php.ini 
+  echo "expose_php = Off"     			>> /etc/php5/cli/php.ini 
+  echo "date.timezone = Europe/Madrid"  	>> /etc/php5/cli/php.ini 
+
+  echo "opcache.interned_strings_buffer=8"  	>> /etc/php5/cli/php.ini 
+  echo "opcache.max_accelerated_files=4000"  	>> /etc/php5/cli/php.ini 
+  echo "opcache.revalidate_freq=60"  		>> /etc/php5/cli/php.ini 
+  echo "opcache.fast_shutdown=1"  		>> /etc/php5/cli/php.ini 
+  echo "opcache.enable_cli=1"  			>> /etc/php5/cli/php.ini 
 fi
 
 if [ -f /etc/php5/apache2/php.ini ];
 then
-  echo "display_errors = Off" 		>> /etc/php5/apache2/php.ini 
-  echo "expose_php = Off"     		>> /etc/php5/apache2/php.ini 
-  echo "date.timezone = Europe/Madrid"  >> /etc/php5/apache2/php.ini   
+  echo "mail.add_x_header = Off" 		>> /etc/php5/apache2/php.ini 
+  
+  echo "display_errors = Off" 			>> /etc/php5/apache2/php.ini 
+  echo "expose_php = Off"     			>> /etc/php5/apache2/php.ini 
+  echo "date.timezone = Europe/Madrid"  	>> /etc/php5/apache2/php.ini   
+
+  echo "opcache.interned_strings_buffer=8"  	>> /etc/php5/apache2/php.ini 
+  echo "opcache.max_accelerated_files=4000"  	>> /etc/php5/apache2/php.ini 
+  echo "opcache.revalidate_freq=60"  		>> /etc/php5/apache2/php.ini 
+  echo "opcache.fast_shutdown=1"  		>> /etc/php5/apache2/php.ini 
+  echo "opcache.enable_cli=1"  			>> /etc/php5/apache2/php.ini 
 fi
 
 if [ -f /etc/php5/fpm/php.ini ];
 then
-  echo "display_errors = Off"		>> /etc/php5/fpm/php.ini 
-  echo "expose_php = Off"     		>> /etc/php5/fpm/php.ini 
-  echo "date.timezone = Europe/Madrid"  >> /etc/php5/fpm/php.ini 
-fi
-
-#############################################################################
-# SECURING PHP SENDMAIL 
-#----------------------------------------------------------------------------
-# In order to not show the X-PHP-Originating-Script header
-#############################################################################
-
-if [ -f /etc/php5/cgi/php.ini ];
-then
-	echo "mail.add_x_header = Off" >> /etc/php5/cgi/php.ini 
-fi
-
-if [ -f /etc/php5/cli/php.ini ];
-then
-	echo "mail.add_x_header = Off" >> /etc/php5/cli/php.ini
-fi
-
-if [ -f /etc/php5/fpm/php.ini ];
-then
-	echo "mail.add_x_header = Off" >> /etc/php5/fpm/php.ini
-fi
-
-if [ -f /etc/php5/apache2/php.ini ];
-then
-	echo "mail.add_x_header = Off" >> /etc/php5/apache2/php.ini
+  echo "mail.add_x_header = Off" 		>> /etc/php5/fpm/php.ini 
+  
+  echo "display_errors = Off"			>> /etc/php5/fpm/php.ini 
+  echo "expose_php = Off"     			>> /etc/php5/fpm/php.ini 
+  echo "date.timezone = Europe/Madrid"  	>> /etc/php5/fpm/php.ini 
+  
+  echo "opcache.interned_strings_buffer=8"  	>> /etc/php5/fpm/php.ini 
+  echo "opcache.max_accelerated_files=4000"  	>> /etc/php5/fpm/php.ini 
+  echo "opcache.revalidate_freq=60"  		>> /etc/php5/fpm/php.ini 
+  echo "opcache.fast_shutdown=1"  		>> /etc/php5/fpm/php.ini 
+  echo "opcache.enable_cli=1"  			>> /etc/php5/fpm/php.ini 
+  
+  service php5-fpm restart 
 fi
 
 #############################################################################
@@ -188,8 +196,6 @@ sudo sed -i 's/#/\/\//g' /etc/php5/apache2/conf.d/*.ini
 #############################################################################
 ## RESTART THE WEB SERVERS
 #############################################################################
-
-service php5-fpm restart 
 
 if [ -f /etc/init.d/apache2 ];
 then
