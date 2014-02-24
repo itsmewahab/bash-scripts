@@ -52,7 +52,7 @@ sudo service hhvm stop
 sudo service hhvm-fastcgi start
 
 #############################################################################
-## Add a cronjob to make sure hhvm-fastcgi never stops running.
+## Cronjob to make sure hhvm-fastcgi never stops running.
 #############################################################################
 echo '* * * * * if [ $(ps aux | grep hhvm | wc -l) -lt 2 ]; then service hhvm-fastcgi start; fi' >> /var/spool/cron/crontabs/root 
 
@@ -60,6 +60,58 @@ echo '* * * * * if [ $(ps aux | grep hhvm | wc -l) -lt 2 ]; then service hhvm-fa
 ## Replace Nginx with my optimized config.
 #############################################################################
 wget -O - https://github.com/nilopc/bashInstallers/blob/master/nginx.sh | bash
+
+VAR=$(cat <<'END_HEREDOC'
+
+###############################################################################
+# REDIRECT www.example.com to example.com
+###############################################################################
+server {
+    server_name www.example.com;
+    rewrite ^ http://example.com$request_uri? permanent;
+}
+
+###############################################################################
+# example.com
+###############################################################################
+server {
+	  listen   80;
+	  server_name example.com;
+	
+	  ## Logging
+	  access_log	/var/log/nginx/example.com.access.log main;
+   error_log	/var/log/nginx/example.com.error.log;
+
+   ## Set Document Root
+	  root /var/www/example.com/;
+
+  	## Set Directory Index
+	  index index.php index.html index.htm;
+
+  	## PHP: Redirect all request to index.php
+	  location / 
+	  {
+		     try_files $uri $uri/ /index.php$is_args$args;
+		     include /etc/nginx/helpers/extra.conf
+	  }
+
+  	## PHP: Pass all PHP request to HHVM
+   location ~ \.php$ {
+       fastcgi_keep_conn on;
+       fastcgi_pass   127.0.0.1:9000;
+       fastcgi_index  index.php;
+       fastcgi_param  SCRIPT_FILENAME /var/www/carlosguerrero.es$fastcgi_script_name;
+       include        fastcgi_params;
+   }
+   
+   ## Remove the X-Powered-By HHVVM header. 
+   fastcgi_hide_header X-Powered-By;
+}
+
+END_HEREDOC
+)
+
+echo "$VAR" > /etc/nginx/sites-available/example.com
 
 #############################################################################
 # Alias HHVM as PHP
