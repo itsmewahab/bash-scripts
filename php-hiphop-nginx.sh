@@ -52,6 +52,11 @@ sudo service hhvm stop
 sudo service hhvm-fastcgi start
 
 #############################################################################
+## Add a cronjob to make sure hhvm-fastcgi never stops running.
+#############################################################################
+echo '* * * * * if [ $(ps aux | grep hhvm | wc -l) -lt 2 ]; then service hhvm-fastcgi start; fi' >> /var/spool/cron/crontabs/root 
+
+#############################################################################
 ## Replace Nginx with my optimized config.
 #############################################################################
 wget -O - https://github.com/nilopc/bashInstallers/blob/master/nginx.sh | bash
