@@ -112,6 +112,7 @@ END_HEREDOC
 )
 
 echo "$VAR" > /etc/nginx/sites-available/example.com
+service nginx restart
 
 #############################################################################
 # Alias HHVM as PHP
