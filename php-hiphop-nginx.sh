@@ -100,7 +100,7 @@ server {
     fastcgi_keep_conn on;
     fastcgi_pass   127.0.0.1:9000;
     fastcgi_index  index.php;
-    fastcgi_param  SCRIPT_FILENAME /var/www/carlosguerrero.es$fastcgi_script_name;
+    fastcgi_param  SCRIPT_FILENAME /var/www/example.com$fastcgi_script_name;
     include        fastcgi_params;
   }
 
