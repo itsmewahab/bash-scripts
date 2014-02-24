@@ -37,15 +37,60 @@ echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list
 sudo apt-get -y update
 sudo apt-get install -y --force-yes nginx hhvm hhvm-fastcgi
 
+VAR=$(cat <<'END_HEREDOC'
 
-## For production servers, you’ll almost certainly want to enable JIT (Just in Time) 
-## compilation to progressively turn the bytecode contained in hhvm.hhbc.sq3 into native code. 
-## Depending on exactly what your code base is doing, this will result in performance 
-## improvements of anywhere from 50% to 300% (100% seems to be a fairly common average).
-if [ $(cat /etc/hhvm/server.hdf| grep "Jit = true" | wc -l) = "0" ];
-then
-   echo -e "Eval {\n   Jit = true\n}" >> /etc/hhvm/server.hdf   
-fi
+PidFile = /var/run/hhvm/pid
+
+Server {
+  Port = 80
+  SourceRoot = /var/www/example.com
+  DefaultDocument = index.php
+}
+
+Log {
+  Level = Warning
+  AlwaysLogUnhandledExceptions = true
+  RuntimeErrorReportingLevel = 8191
+  UseLogFile = true
+  UseSyslog = false
+  File = /var/log/hhvm/error.log
+  InjectedStackTrace = true
+  NativeStackTrace = true
+  Access {
+    * {
+      File = /var/log/hhvm/access.log
+      Format = %h %l %u % t \"%r\" %>s %b
+    }
+  }
+}
+
+Debug {
+ FullBacktrace = true
+ ServerStackTrace = true
+ ServerErrorMessage = true
+ TranslateSource = true
+}
+
+Repo {
+  Central {
+    Path = /var/log/hhvm/.hhvm.hhbc
+  }
+}
+
+MySQL {
+  TypedResults = false
+}
+
+Eval {
+   Jit = true
+}
+
+END_HEREDOC
+)
+
+
+echo "$VAR" > /etc/hhvm/server.hdf   
+
 
 ## Stop hhvm and start hhvm-fastcgi
 sudo service hhvm stop
