@@ -92,7 +92,7 @@ server {
   location / 
   {
     try_files $uri $uri/ /index.php$is_args$args;
-    include /etc/nginx/helpers/extra.conf
+    include /etc/nginx/helpers/extra.conf;
   }
 
   ## PHP: Pass all PHP request to HHVM
