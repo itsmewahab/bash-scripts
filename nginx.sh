@@ -25,6 +25,9 @@ then
 	sudo apt-get install -y nginx
 fi
 
+sudo mkdir -p /etc/nginx/sites-available/
+sudo mkdir -p /etc/nginx/sites-enabled/
+
 sudo mkdir -p /etc/nginx/logs/
 sudo touch /etc/nginx/logs/error.log
 
