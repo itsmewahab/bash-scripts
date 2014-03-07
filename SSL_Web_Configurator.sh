@@ -11,6 +11,7 @@
  
 START_CWD=`pwd`
 ANSWER=""
+WILDCARD=""
 
 #################################################################################
 #	Install Apache if necessary and creates SSL to save certificates.
@@ -98,28 +99,119 @@ nginxSSL()
 #################################################################################
 nginxSSLVirtualHost()
 {
+	
+	if [ "$WILDCARD" = "0" ];
+	then
+	
 cat << EOF > "$START_CWD/$BASE_DOMAIN.conf"
-# HTTP server redirect to HTTPs
+############################################################################
+##	REDIRECT TO HTTPS
+############################################################################
 server {
     listen 80;
-    server_name $BASE_DOMAIN;
-    return 301 https://$BASE_DOMAIN\$request_uri;
+    server_name www.$BASE_DOMAIN $BASE_DOMAIN;
+    rewrite ^ https://$BASE_DOMAIN\$request_uri? permanent;
+}
+############################################################################
+##	$BASE_DOMAIN REDIRECTS
+############################################################################
+server {
+    listen 443;
+    server_name www.$BASE_DOMAIN;
+    
+    ssl on;
+    ssl_client_certificate  /etc/nginx/ssl/$BASE_DOMAIN.ca.crt;
+    ssl_certificate         /etc/nginx/ssl/$BASE_DOMAIN.chained.crt;
+    ssl_certificate_key     /etc/nginx/ssl/$BASE_DOMAIN.key;
+
+    rewrite ^ https://$BASE_DOMAIN\$request_uri? permanent;
 }
 
-# HTTPs server
+############################################################################
+##	$BASE_DOMAIN
+############################################################################
 server {
 	listen 443;
 	server_name $BASE_DOMAIN;
 
 	root /var/www/$BASE_DOMAIN;
-	index index.html index.htm index.php;
 
+	location / {
+		try_files  \$uri  \$uri/  /index.php?\$args;
+		index index.html index.htm index.php;
+	}
+	
 	ssl on;
 	ssl_client_certificate  /etc/nginx/ssl/$BASE_DOMAIN.ca.crt
 	ssl_certificate         /etc/nginx/ssl/$DOMAIN_NAME.chained.crt;
 	ssl_certificate_key     /etc/nginx/ssl/$DOMAIN_NAME.key; 
 }
 EOF
+	else
+
+cat << EOF > "$START_CWD/$BASE_DOMAIN.conf"
+############################################################################
+##	REDIRECT TO HTTPS
+############################################################################
+server {
+    listen 80;
+    server_name www.$BASE_DOMAIN $BASE_DOMAIN;
+    rewrite ^ https://$BASE_DOMAIN\$request_uri? permanent;
+}
+server {
+    listen 80;
+    server_name  ~^www.(?<subdomain>.+)\.$BASE_DOMAIN$ ~^(?<subdomain>.+)\.$BASE_DOMAIN$;
+    rewrite ^ https://\$subdomain.$BASE_DOMAIN\$request_uri? permanent;
+}
+############################################################################
+##	$BASE_DOMAIN REDIRECTS
+############################################################################
+server {
+    listen 443;
+    server_name www.$BASE_DOMAIN;
+    
+    ssl on;
+    ssl_client_certificate  /etc/nginx/ssl/$BASE_DOMAIN.ca.crt;
+    ssl_certificate         /etc/nginx/ssl/$BASE_DOMAIN.chained.crt;
+    ssl_certificate_key     /etc/nginx/ssl/$BASE_DOMAIN.key;
+
+    rewrite ^ https://$BASE_DOMAIN\$request_uri? permanent;
+}
+############################################################################
+##  REDIRECT: WWW.$SUBDOMAIN.OPENSHOPEN.ng:443 
+############################################################################
+server {
+    listen 443;
+    server_name  ~^www.(?<subdomain>.+)\.$BASE_DOMAIN$;
+
+    ssl on;
+    ssl_client_certificate  /etc/nginx/ssl/$BASE_DOMAIN.ca.crt;
+    ssl_certificate         /etc/nginx/ssl/$BASE_DOMAIN.chained.crt;
+    ssl_certificate_key     /etc/nginx/ssl/$BASE_DOMAIN.key; 
+
+    rewrite ^ https://\$subdomain.$BASE_DOMAIN\$request_uri? permanent;
+}
+############################################################################
+##	$BASE_DOMAIN
+############################################################################
+server {
+	listen 443;
+	server_name $BASE_DOMAIN;
+	root /var/www/$BASE_DOMAIN;
+
+	location / {
+		try_files  \$uri  \$uri/  /index.php?\$args;
+		index index.html index.htm index.php;
+	}
+	
+	ssl on;
+	ssl_client_certificate  /etc/nginx/ssl/$BASE_DOMAIN.ca.crt
+	ssl_certificate         /etc/nginx/ssl/$DOMAIN_NAME.chained.crt;
+	ssl_certificate_key     /etc/nginx/ssl/$DOMAIN_NAME.key; 
+}
+EOF
+	fi
+
 
 }
 
@@ -141,10 +233,12 @@ question1()
 		y|yes) 
 			DOMAIN_NAME="*.$DOMAIN_NAME"
 			VALID=0
+			WILDCARD=1
 			;;
 		n|no)
 			DOMAIN_NAME="$DOMAIN_NAME"
 			VALID=0
+			WILDCARD=0
 			;;
 		*)
 			echo "Please, YES or NO [y|n]?"
