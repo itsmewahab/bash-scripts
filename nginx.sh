@@ -9,6 +9,17 @@
 #
 ############################################################################
  
+VERSION=$(lsb_release -c | awk '{print $2}') 
+echo "" >> /etc/apt/sources.list
+echo "deb http://nginx.org/packages/ubuntu/ $VERSION nginx" >> /etc/apt/sources.list
+echo "deb-src http://nginx.org/packages/ubuntu/ $VERSION nginx" >> /etc/apt/sources.list
+
+wget http://nginx.org/keys/nginx_signing.key
+cat nginx_signing.key | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get upgrade
+
 if [ -z $(which nginx) ];
 then
 	sudo apt-get install -y nginx
