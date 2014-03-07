@@ -416,18 +416,23 @@ echo "$VAR" > /etc/nginx/helpers/extra.conf
 
 
 VAR=$(cat <<'END_HEREDOC'
+#------------------------------------------------------------------------------
+# FastCGI cache for example.com
+#------------------------------------------------------------------------------
+fastcgi_cache_path /var/run/nginx-cache levels=1:2 keys_zone=example.com:500m inactive=60m;
+fastcgi_cache_key "$scheme$request_method$host$request_uri";
+fastcgi_cache_use_stale error timeout invalid_header http_500;
 
-###############################################################################
-# REDIRECT www.example.com to example.com
-###############################################################################
+#------------------------------------------------------------------------------
+# Redirect www.example.com to example.com
+#------------------------------------------------------------------------------
 server {
     server_name www.example.com;
     rewrite ^ http://example.com$request_uri? permanent;
 }
-
-###############################################################################
+#------------------------------------------------------------------------------
 # example.com
-###############################################################################
+#------------------------------------------------------------------------------
 server {
 	listen   80;
 	server_name example.com;
@@ -442,19 +447,35 @@ server {
   	## Set Directory Index
 	index index.php index.html index.htm;
 
-  	## PHP: Redirect all request to index.php
+  	## Try static files and if not found pass it to index.php
 	location / 
 	{
 		try_files $uri $uri/ /index.php$is_args$args;
-		include /etc/nginx/helpers/extra.conf
+		include /etc/nginx/helpers/extra.conf;
 	}
 
+	## POST requests and urls with a query string should always go to PHP
+	set $skip_cache 0;
+	if ($request_method = POST ) {
+		set $skip_cache 1;
+	}
+	if ( $query_string != "" ) {
+		set $skip_cache 1;
+	}
+	
   	## PHP: Pass all PHP request to PHP-FPM
-	location ~ \.php$ {
+	location ~ \.php$ 
+	{
 		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
 		include fastcgi_params;
+		
+		## FastCGI caching
+		fastcgi_cache_bypass $skip_cache;
+	        fastcgi_no_cache $skip_cache;
+		fastcgi_cache example.com;
+		fastcgi_cache_valid  60m;
 	}
 }
 
