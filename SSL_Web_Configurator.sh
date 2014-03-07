@@ -116,7 +116,7 @@ server {
 ##	$BASE_DOMAIN REDIRECTS
 ############################################################################
 server {
-    listen 443;
+    listen 443 ssl spdy;
     server_name www.$BASE_DOMAIN;
     
     ssl on;
@@ -131,7 +131,7 @@ server {
 ##	$BASE_DOMAIN
 ############################################################################
 server {
-	listen 443;
+	listen 443 ssl spdy;
 	server_name $BASE_DOMAIN;
 
 	root /var/www/$BASE_DOMAIN;
@@ -167,7 +167,7 @@ server {
 ##	$BASE_DOMAIN REDIRECTS
 ############################################################################
 server {
-    listen 443;
+    listen 443 ssl spdy;
     server_name www.$BASE_DOMAIN;
     
     ssl on;
@@ -181,7 +181,7 @@ server {
 ##  REDIRECT: WWW.$SUBDOMAIN.$BASE_DOMAIN:443
 ############################################################################
 server {
-    listen 443;
+    listen 443 ssl spdy;
     server_name  ~^www.(?<subdomain>.+)\.$BASE_DOMAIN$;
 
     ssl on;
@@ -195,7 +195,7 @@ server {
 ##	$BASE_DOMAIN
 ############################################################################
 server {
-	listen 443;
+	listen 443 ssl spdy;
 	server_name $BASE_DOMAIN;
 	root /var/www/$BASE_DOMAIN;
 
