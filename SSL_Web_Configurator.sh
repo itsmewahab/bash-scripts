@@ -178,7 +178,7 @@ server {
     rewrite ^ https://$BASE_DOMAIN\$request_uri? permanent;
 }
 ############################################################################
-##  REDIRECT: WWW.$SUBDOMAIN.OPENSHOPEN.ng:443 
+##  REDIRECT: WWW.$SUBDOMAIN.$BASE_DOMAIN:443
 ############################################################################
 server {
     listen 443;
