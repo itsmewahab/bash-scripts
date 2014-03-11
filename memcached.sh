@@ -38,6 +38,8 @@ echo 'CACHESIZE="512"' >> /etc/default/memcached
 echo '## make sure we accept connection from external machines on our IP, eg: 192.168.1.12:11211' >> /etc/default/memcached 
 echo '##OPTIONS="-l 192.168.1.12 -L"' >> /etc/default/memcached 
 
+sudo service memcached restart 
+
 ##--------------------------------------------------------------------------
 ## CONFIGURE THE MAXIMUM PORTS A LOCAL SERVICE CAN USE.
 ##--------------------------------------------------------------------------
