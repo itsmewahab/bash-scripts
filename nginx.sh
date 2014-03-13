@@ -72,6 +72,9 @@ error_log  logs/error.log warn;
 pid        /var/run/nginx.pid;
 
 http {
+	
+  client_max_body_size 20m; ## 20MB FILE UPLOAD LIMIT. Should be more than enough	
+	
   types_hash_max_size 2048;
   server_names_hash_bucket_size 64;
 
