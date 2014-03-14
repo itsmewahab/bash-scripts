@@ -19,10 +19,13 @@ then
   exit 1
 fi
 
+## Install NodeJS
 echo "\n" | sudo add-apt-repository ppa:chris-lea/node.js  
 sudo apt-get update  
 sudo apt-get upgrade
-
 sudo apt-get install nodejs
+
+## Install GruntJS
+npm install -g grunt grunt-cli
 
 exit 0
