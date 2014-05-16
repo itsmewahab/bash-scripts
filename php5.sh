@@ -122,12 +122,23 @@ fi
 
 gunzip -f *.gz
 
+
+#############################################################################
+# MONGO DB FOR PHP
+#############################################################################
+sudo pecl install mongo
+echo "extension=mongo.so" > /etc/php5/mods-available/mongo.ini
+ln -s /etc/php5/mods-available/mongo.ini /etc/php5/cli/conf.d/30-mongo.ini
+ln -s /etc/php5/mods-available/mongo.ini /etc/php5/cgi/conf.d/30-mongo.ini
+ln -s /etc/php5/mods-available/mongo.ini /etc/php5/fpm/conf.d/30-mongo.ini
+
+
 #############################################################################
 # SECURING PHP CONFIGURATION
 #############################################################################
 if [ -f /etc/php5/cgi/php.ini ];
 then
-  echo "mail.add_x_header = Off" 		>> /etc/php5/cgi/php.ini 
+  echo "mail.add_x_header = Off" 		>> /etc/php5/cgi/php.ini
   
   echo "display_errors = Off" 			>> /etc/php5/cgi/php.ini 
   echo "expose_php = Off"     			>> /etc/php5/cgi/php.ini 
@@ -182,6 +193,8 @@ then
   echo "opcache.max_accelerated_files=4000"  	>> /etc/php5/fpm/php.ini 
   echo "opcache.revalidate_freq=60"  		>> /etc/php5/fpm/php.ini 
   echo "opcache.fast_shutdown=1"  		>> /etc/php5/fpm/php.ini 
+  echo "opcache.enable_cli=1"  			>> /etc/php5/fpm/php.ini 
+  
   echo "opcache.enable_cli=1"  			>> /etc/php5/fpm/php.ini 
   
   service php5-fpm restart 
