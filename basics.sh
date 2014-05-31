@@ -23,7 +23,7 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 
 ## Install Java. Always comes in handy
-sudo apt-get -y install default-jre
+sudo apt-get -y install default-jre default-jdk icedtea-7-plugin
 
 ## Latest php5 version
 sudo apt-get install -y build-essential python-software-properties
