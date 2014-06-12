@@ -1,12 +1,30 @@
 #!/bin/bash
 
-echo 'Installing DAILY build of SphinxSearch'
+############################################################################
+#
+# Author: Nil Portugués Calderó <contact@nilportugues.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+############################################################################
 
-#####################################################################
-# Install SphinxSearch
-#####################################################################
+if [ "$UID" -ne "0" ]
+then
+  echo "" 
+  echo "You must be sudoer or root. To run this script enter:"
+  echo ""
+  echo "sudo chmod +x $0; sudo ./$0"
+  echo ""
+  exit 1
+fi
 
-##Add to launchpad
+########################################################################
+# INSTALLATION
+########################################################################
+
+echo 'Installing DAILY build of SphinxSearch...'
+
 VERSION_NAME=`cat /etc/lsb-release | grep CODENAME | awk -F '=' '{print $2}'`
 
 if [ $(cat /etc/apt/sources.list | grep "deb http://ppa.launchpad.net/builds/sphinxsearch" | wc -w) = "0" ];
@@ -19,12 +37,11 @@ then
   echo "deb-src http://ppa.launchpad.net/builds/sphinxsearch-daily/ubuntu $VERSION_NAME main" >> /etc/apt/sources.list
 fi  
 
-# Install
 sudo apt-get update
-sudo apt-get install sphinxsearch
+sudo apt-get install sphinxsearch mysql-client mysql-server
 
 #####################################################################
-# Install the LIBSTEMMER for better search results
+# INSTALLATION OF LIBSTEMMER 
 #####################################################################
 
 cd /etc/sphinx
@@ -33,3 +50,9 @@ tar xvf libstemmer_c.tgz
 ./configure --with-libstemmer
 make
 make install
+
+#####################################################################
+# CONFIGURATION 
+# @todo: load up a SQL basic example and test stemmer
+#####################################################################
+
