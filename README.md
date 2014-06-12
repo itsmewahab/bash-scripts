@@ -30,6 +30,7 @@ Most of the scripts include configurations too, so once the script ends is up an
 - [Sendmail](https://raw.github.com/nilopc/bashInstallers/master/sendMail.sh)
  
 ## Fulltext search engines
+- [SphinxSearch (daily build)](https://raw.github.com/nilopc/bashInstallers/master/sphinx-search.sh)
 - [ElasticSearch](https://raw.github.com/nilopc/bashInstallers/master/elasticsearch.sh)
 
 ## Queue Systems
