@@ -20,7 +20,7 @@ then
 fi
 
 ########################################################################
-# INSTALLATION
+# INSTALLATION, includes libstemmer because it's the edge repo :D
 ########################################################################
 
 echo 'Installing DAILY build of SphinxSearch...'
@@ -39,17 +39,6 @@ fi
 
 sudo apt-get update
 sudo apt-get install sphinxsearch mysql-client mysql-server
-
-#####################################################################
-# INSTALLATION OF LIBSTEMMER 
-#####################################################################
-
-cd /etc/sphinx
-wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
-tar xvf libstemmer_c.tgz
-./configure --with-libstemmer
-make
-make install
 
 #####################################################################
 # CONFIGURATION 
