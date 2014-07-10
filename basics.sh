@@ -33,15 +33,16 @@ sudo apt-get -y upgrade
 
 ## Git and git config
 sudo apt-get install -y git-core
-git config --system color.ui "auto"
-git config --system color.branch "auto"
-git config --system color.diff "auto"
-git config --system color.interactive "auto"
-git config --system color.status "auto"
-git config --system alias.st "status"
-git config --system alias.br "branch"
-git config --system alias.co "checkout"
-git config --system alias.df "diff"
-git config --system alias.lg "log -p"
+git config --global color.ui "auto"
+git config --global color.branch "auto"
+git config --global color.diff "auto"
+git config --global color.interactive "auto"
+git config --global color.status "auto"
+git config --global alias.st "status"
+git config --global alias.br "branch"
+git config --global alias.co "checkout"
+git config --global alias.df "diff"
+git config --global alias.lg "log -p"
+git config --global branch.autosetuprebase always
 
 exit 0
