@@ -24,7 +24,7 @@ fi
 #############################################################
 echo "\n" | sudo add-apt-repository ppa:chris-lea/node.js  
 sudo apt-get update
-sudo apt-get install -y nodejs npm
+sudo apt-get install -y nodejs
 
 #############################################################
 # INSTALL APACHE CORDOVA
