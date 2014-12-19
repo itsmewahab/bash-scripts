@@ -10,6 +10,9 @@ Most of the scripts include configurations too, so once the script ends is up an
 - [HipHopVM (latest)](https://raw.github.com/nilopc/bashInstallers/master/php-hiphop-nginx.sh)
 - [NodeJs (latest)](https://raw.github.com/nilopc/bashInstallers/master/nodejs.sh)
 
+## BDD
+ - [Selenium Standalone Server (latest)](https://raw.github.com/nilopc/bashInstallers/master/selenium-standalone-server.sh)
+
 ## Web Servers
 - [Apache 2.4 (latest)](https://raw.github.com/nilopc/bashInstallers/master/apache2.sh)
 - [Nginx](https://raw.github.com/nilopc/bashInstallers/master/nginx.sh)
