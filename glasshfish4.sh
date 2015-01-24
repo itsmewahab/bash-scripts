@@ -1,4 +1,13 @@
-#!bin/bash
+#!/bin/bash
+
+############################################################################
+#
+# Author: Nil Portugués Calderó <contact@nilportugues.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+############################################################################
 
 sudo -i apt-get update
 sudo -i apt-get install oracle-java7-installer unzip
