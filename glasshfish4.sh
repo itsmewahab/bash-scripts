@@ -5,7 +5,7 @@ sudo -i apt-get install oracle-java7-installer unzip
 
 wget download.java.net/glassfish/4.0/release/glassfish-4.0.zip
 sudo unzip glassfish-4.0.zip -d /opt
-sudo chmod -Rf 777 /opt/glassfish4/glassfish/domains/
+sudo chmod -Rf 755 /opt/glassfish4/glassfish/domains/
 echo 'export PATH=/opt/glassfish4/bin:$PATH' >> ~/.profile
 echo 'alias asadmin='/opt/glassfish4/bin/asadmin' >> ~/.bash_aliases
 
